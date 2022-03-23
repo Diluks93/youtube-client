@@ -8,6 +8,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ButtonComponent } from './components/button/button.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { CardComponent } from './components/card/card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { CardComponent } from './components/card/card.component';
     LogoComponent,
     CardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
