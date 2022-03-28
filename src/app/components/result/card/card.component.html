@@ -1,25 +1,27 @@
 <mat-card class="card">
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <img mat-card-image src={{podcast?.preview}}
+       alt="preview podcast"
+       [ngStyle]="{'width':'{{podcast.width}}', 'height':'{{podcast.height}}'}">
   <mat-card-actions>
     <span class="flex">
       <mat-icon>visibility</mat-icon>
-      1000
+      {{podcast?.viewCount}}
     </span>
     <span class="flex">
       <mat-icon>thumb_down_alt</mat-icon>
-      680
+      {{podcast?.dislikeCount}}
     </span>
     <span class="flex">
       <mat-icon>thumb_up_alt</mat-icon>
-      320
+      {{podcast?.likeCount}}
     </span>
     <span class="flex">
       <mat-icon>question_answer</mat-icon>
-      250
+      {{podcast?.commentCount}}
     </span>
   </mat-card-actions>
   <mat-card-header>
-    <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-title>{{podcast?.channelTitle}}</mat-card-title>
   </mat-card-header>
   <button mat-raised-button color="primary" class="btn">
     more...

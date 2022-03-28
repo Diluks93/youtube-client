@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from './components/header/header.module';
 import { FilterModule } from './components/filter/filter.module';
 import { ResultModule } from './components/result/result.module';
-import { ItemService } from './services/item.service';
+import { PodcastService } from './services/podcast.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +22,7 @@ import { ItemService } from './services/item.service';
     FilterModule,
     ResultModule,
   ],
-  providers: [ItemService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

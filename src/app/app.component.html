@@ -1,5 +1,5 @@
 <mat-toolbar color="accent" class="container">
-  <app-header (onShowFilterComponent)="toggleFilterComponent = !toggleFilterComponent" class="header"></app-header>
+  <app-header (isShowFilterComponent)="toggleFilterComponent = !toggleFilterComponent" class="header"></app-header>
   <app-list *ngIf="toggleFilterComponent"></app-list>
 </mat-toolbar>
 <app-result *ngIf="isResultComponent" class="container main"></app-result>

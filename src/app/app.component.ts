@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public toggleFilterComponent = false;
 
-  public isResultComponent = false;
+  public isResultComponent = true;
 }
