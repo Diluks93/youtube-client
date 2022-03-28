@@ -4,17 +4,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from './modules/app-material.module';
 import { AppComponent } from './app.component';
-import { ItemService } from './services/item.service';
 import { HeaderModule } from './components/header/header.module';
 import { FilterModule } from './components/filter/filter.module';
 import { ResultModule } from './components/result/result.module';
+import { ItemService } from './services/item.service';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
     BrowserAnimationsModule,
     HeaderModule,
     FilterModule,
