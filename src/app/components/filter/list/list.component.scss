@@ -2,6 +2,6 @@
   display: flex;
   & :nth-child(2),
   & :nth-child(3) {
-    color: #7b1fa2
+    color: var(--bg)
   }
 }
