@@ -6,9 +6,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output() isShowFilterComponent = new EventEmitter();
+  @Output() changeFilterComponent = new EventEmitter();
 
-  public showFilterComponent(): void {
-    this.isShowFilterComponent.emit(true);
+  public toggleFilterComponent(): void {
+    this.changeFilterComponent.emit(true);
   }
 }

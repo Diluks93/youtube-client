@@ -8,6 +8,6 @@ import { MaterialModule } from 'src/app/modules/app-material.module';
 @NgModule({
   declarations: [CardComponent, ResultComponent],
   imports: [CommonModule, MaterialModule],
-  exports: [CardComponent, ResultComponent],
+  exports: [ResultComponent],
 })
 export class ResultModule {}

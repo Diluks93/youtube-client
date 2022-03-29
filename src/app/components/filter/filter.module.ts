@@ -8,6 +8,6 @@ import { MaterialModule } from '../../modules/app-material.module';
 @NgModule({
   declarations: [ListComponent, InputComponent],
   imports: [CommonModule, MaterialModule],
-  exports: [ListComponent, InputComponent],
+  exports: [ListComponent],
 })
 export class FilterModule {}

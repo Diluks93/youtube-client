@@ -12,6 +12,8 @@ export class CardComponent {
 
   public color: ThemePalette;
 
+  public nameIcons = ['visibility', 'thumb_down_alt', 'thumb_up_alt', 'question_answer'];
+
   private SEVEN_DAYS = 7;
 
   private DAYS_PER_MONTH = 30 - this.SEVEN_DAYS;

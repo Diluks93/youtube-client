@@ -17,12 +17,6 @@ import { MaterialModule } from 'src/app/modules/app-material.module';
     LogoComponent,
   ],
   imports: [CommonModule, MaterialModule],
-  exports: [
-    HeaderComponent,
-    LoginInformationBlockComponent,
-    SettingButtonComponent,
-    SearchComponent,
-    LogoComponent,
-  ],
+  exports: [HeaderComponent],
 })
 export class HeaderModule {}
