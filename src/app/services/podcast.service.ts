@@ -12,6 +12,7 @@ export class Podcast {
     public dislikeCount: string,
     public commentCount: string,
     public preview: string,
+    public publishedAt: string,
     public width?: number,
     public height?: number,
   ) {}
@@ -30,7 +31,8 @@ export class PodcastService {
           podcast.statistics.likeCount,
           podcast.statistics.dislikeCount,
           podcast.statistics.commentCount,
-          podcast.snippet.thumbnails.default.url,
+          podcast.snippet.thumbnails.high.url,
+          podcast.snippet.publishedAt,
           podcast.snippet.thumbnails.default.width,
           podcast.snippet.thumbnails.default.height,
         ),
