@@ -1,4 +1,9 @@
 <app-logo></app-logo>
-<app-search></app-search>
-<app-setting-button (click)="toggleFilterComponent()"></app-setting-button>
+<app-search
+  (fetchedChange)="pipeFetchedChange($event)"
+  [fetched]="fetched"
+  ></app-search>
+<app-setting-button
+  (click)="toggleFilterComponent()"
+  ></app-setting-button>
 <app-login-information-block class="login"></app-login-information-block>
