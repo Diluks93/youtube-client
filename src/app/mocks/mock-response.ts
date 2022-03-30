@@ -1,6 +1,6 @@
 import { ResponseClient } from 'src/app/models/response-client.model';
 
-export const exampleResponse: ResponseClient = {
+export const mockResponse: ResponseClient = {
   kind: 'youtube#videoListResponse',
   etag: '"Fznwjl6JEQdo1MGvHOGaz_YanRU/Cmodw7c5XPTM8Yg3kMXelihxek4"',
   pageInfo: {

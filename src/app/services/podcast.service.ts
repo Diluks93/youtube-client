@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { exampleResponse } from 'src/assets/example-response';
+import { mockResponse } from '../mocks/mock-response';
 
-const podcasts = exampleResponse.items;
+const podcasts = mockResponse.items;
 export class Podcast {
   constructor(
     public id: string,
