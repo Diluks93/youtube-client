@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { exampleResponse } from './example-response';
+import { exampleResponse } from 'src/assets/example-response';
 
 const podcasts = exampleResponse.items;
 export class Podcast {

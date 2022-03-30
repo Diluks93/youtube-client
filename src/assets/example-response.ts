@@ -1,4 +1,4 @@
-import { ResponseClient } from '../models/response-client.model';
+import { ResponseClient } from 'src/app/models/response-client.model';
 
 export const exampleResponse: ResponseClient = {
   kind: 'youtube#videoListResponse',
