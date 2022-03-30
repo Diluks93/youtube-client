@@ -4,23 +4,23 @@ import { mockResponse } from '../mocks/mock-response';
 const podcasts = mockResponse.items;
 export class Podcast {
   constructor(
-    public id: string,
-    public channelTitle: string,
-    public description: string,
-    public viewCount: string,
-    public likeCount: string,
-    public dislikeCount: string,
-    public commentCount: string,
-    public preview: string,
-    public publishedAt: string,
-    public width?: number,
-    public height?: number,
+    readonly id: string,
+    readonly channelTitle: string,
+    readonly description: string,
+    readonly viewCount: string,
+    readonly likeCount: string,
+    readonly dislikeCount: string,
+    readonly commentCount: string,
+    readonly preview: string,
+    readonly publishedAt: string,
+    readonly width?: number,
+    readonly height?: number,
   ) {}
 }
 
 @Injectable()
 export class PodcastService {
-  getPodcasts(): Array<Podcast> {
+  public getPodcasts(): Array<Podcast> {
     return podcasts.map(
       (podcast) =>
         new Podcast(
@@ -39,7 +39,7 @@ export class PodcastService {
     );
   }
 
-  getPodcastsById(PodcastId: string) {
+  public getPodcastsById(PodcastId: string) {
     return podcasts.find((podcast) => podcast.id === PodcastId);
   }
 }
