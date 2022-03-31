@@ -3,22 +3,6 @@
        alt="preview podcast"
        [ngStyle]="{'width':'{{podcast.width}}', 'height':'{{podcast.height}}'}">
   <mat-card-actions>
-    <!-- <span class="flex">
-      <mat-icon>visibility</mat-icon>
-      {{podcast?.viewCount}}
-    </span>
-    <span class="flex">
-      <mat-icon>thumb_down_alt</mat-icon>
-      {{podcast?.dislikeCount}}
-    </span>
-    <span class="flex">
-      <mat-icon>thumb_up_alt</mat-icon>
-      {{podcast?.likeCount}}
-    </span>
-    <span class="flex">
-      <mat-icon>question_answer</mat-icon>
-      {{podcast?.commentCount}}
-    </span> -->
     <span *ngFor="let icon of nameIcons; index as i" class="flex">
       <mat-icon>{{icon}}</mat-icon>
       <span [ngSwitch]="i">
@@ -36,6 +20,6 @@
     more...
   </button>
   <mat-card-footer>
-    <mat-progress-bar mode="determinate" value="100" [color]="setColorFooter(podcast!)"></mat-progress-bar>
+    <div appStatusPublications [podcast]="podcast" class="status-publications"></div>
   </mat-card-footer>
 </mat-card>
