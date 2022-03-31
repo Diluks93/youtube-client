@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Podcast, PodcastService } from 'src/app/services/podcast.service';
 
 @Component({
@@ -9,6 +9,15 @@ import { Podcast, PodcastService } from 'src/app/services/podcast.service';
 })
 export class ResultComponent implements OnInit {
   public podcasts: Array<Podcast> = [];
+
+  @Input()
+  public value: string = '';
+
+  @Output() valueChange = new EventEmitter();
+
+  public pipeValueChange(value: string): void {
+    this.valueChange.emit((this.value = value));
+  }
 
   constructor(private podcastService: PodcastService) {}
 

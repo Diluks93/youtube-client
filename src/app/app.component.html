@@ -4,6 +4,12 @@
     class="header"
     [(fetched)]="fetched"
   ></app-header>
-  <app-list *ngIf="toggleFilterComponent"></app-list>
+  <app-list
+    *ngIf="toggleFilterComponent"
+    (valueChange)="pipeValueChange($event)"
+    ></app-list>
 </mat-toolbar>
-<app-result *ngIf="fetched" class="container main"></app-result>
+<app-result
+  [value]="value"
+  *ngIf="fetched" class="container main"
+  ></app-result>

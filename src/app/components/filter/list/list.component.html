@@ -7,6 +7,9 @@
     <button mat-flat-button color="accent">count of views</button>
   </mat-list-item>
   <mat-list-item role="listitem">
-    <app-input></app-input>
+    <app-input
+      (valueChange)="pipeValueChange($event)"
+      [value]="value"
+      ></app-input>
   </mat-list-item>
 </mat-list>

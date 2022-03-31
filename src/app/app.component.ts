@@ -6,7 +6,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @Input() fetched = false;
+  @Input()
+  public value: string = '';
+
+  @Output() valueChange = new EventEmitter();
+
+  public pipeValueChange(value: string): void {
+    this.valueChange.emit((this.value = value));
+  }
+
+  @Input()
+  public fetched = false;
 
   @Output() fetchedChange = new EventEmitter();
 

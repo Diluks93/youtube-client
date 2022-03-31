@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Podcast } from '../../../services/podcast.service';
 
@@ -9,6 +9,17 @@ import { Podcast } from '../../../services/podcast.service';
 })
 export class CardComponent {
   @Input() podcast: Podcast | null;
+
+  public podcasts: Array<Podcast> = [];
+
+  @Input()
+  public value: string = '';
+
+  @Output() valueChange = new EventEmitter();
+
+  public pipeValueChange(value: string): void {
+    this.valueChange.emit((this.value = value));
+  }
 
   public color: ThemePalette;
 

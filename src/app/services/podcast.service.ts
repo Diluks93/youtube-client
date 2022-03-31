@@ -5,7 +5,7 @@ const podcasts = mockResponse.items;
 export class Podcast {
   constructor(
     readonly id: string,
-    readonly channelTitle: string,
+    readonly title: string,
     readonly description: string,
     readonly viewCount: string,
     readonly likeCount: string,
@@ -15,6 +15,7 @@ export class Podcast {
     readonly publishedAt: string,
     readonly width?: number,
     readonly height?: number,
+    readonly tags?: Array<string>,
   ) {}
 }
 
@@ -25,7 +26,7 @@ export class PodcastService {
       (podcast) =>
         new Podcast(
           podcast.id,
-          podcast.snippet.channelTitle,
+          podcast.snippet.title,
           podcast.snippet.description,
           podcast.statistics.viewCount,
           podcast.statistics.likeCount,
@@ -35,6 +36,7 @@ export class PodcastService {
           podcast.snippet.publishedAt,
           podcast.snippet.thumbnails.default.width,
           podcast.snippet.thumbnails.default.height,
+          podcast.snippet.tags,
         ),
     );
   }

@@ -1,1 +1,5 @@
-<app-card *ngFor="let podcast of podcasts" [podcast]="podcast"></app-card>
+<app-card
+  [(value)]="value"
+  [podcast]="podcast"
+  *ngFor="let podcast of podcasts | filter:value"
+  ></app-card>
