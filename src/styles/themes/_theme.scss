@@ -1,4 +1,4 @@
-.standart-theme {
+.standard-theme {
   $my-2-theme-dark: mat-dark-theme($my-2-primary, $my-2-accent, $my-2-warn);
   @include angular-material-theme($my-2-theme-dark);
   $primary: mat-color($my-2-primary);
