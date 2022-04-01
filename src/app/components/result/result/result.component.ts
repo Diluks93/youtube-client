@@ -12,10 +12,13 @@ export class ResultComponent implements OnInit {
   public podcasts: Array<Podcast> = [];
 
   @Input()
+  public isClickingCountOfViews: boolean | undefined = undefined;
+
+  @Input()
   public value: string = '';
 
   @Output()
-  public valueChange = new EventEmitter();
+  public valueChange = new EventEmitter<string>();
 
   public pipeValueChange(value: string): void {
     this.valueChange.emit((this.value = value));

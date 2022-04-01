@@ -7,9 +7,12 @@
   <app-list
     *ngIf="toggleFilterComponent"
     (valueChange)="pipeValueChange($event)"
+    (isClickingCountOfViewsChange)="toggleClick($event)"
     ></app-list>
 </mat-toolbar>
 <app-result
   [value]="value"
-  *ngIf="fetched" class="container main"
+  *ngIf="fetched"
+  [isClickingCountOfViews]="isClickingCountOfViews"
+  class="container main"
   ></app-result>

@@ -1,5 +1,7 @@
 <app-card
   [(value)]="value"
   [podcast]="podcast"
-  *ngFor="let podcast of podcasts | filter:value | orderBy: false"
+  *ngFor="let podcast of podcasts
+    | filter:value
+    | orderBy: isClickingCountOfViews"
   ></app-card>

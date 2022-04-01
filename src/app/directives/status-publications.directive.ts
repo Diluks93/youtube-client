@@ -33,7 +33,6 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.el.nativeElement.style.backgroundColor = this.color;
-    console.log(this.color);
   }
 
   private setColorFooter(podcast: Podcast): void {
