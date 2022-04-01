@@ -1,12 +1,15 @@
 <mat-list role="list" class="flex">
   <mat-list-item role="listitem">Sorting by:</mat-list-item>
   <mat-list-item role="listitem">
-    <button mat-flat-button color="accent">date</button>
+    <button
+      mat-flat-button color="accent"
+      (click)="toggleClickDate()"
+      >date</button>
   </mat-list-item>
   <mat-list-item role="listitem">
     <button
       mat-flat-button color="accent"
-      (click)="toggleClick()"
+      (click)="toggleClickCountOfViews()"
       >count of views</button>
   </mat-list-item>
   <mat-list-item role="listitem">

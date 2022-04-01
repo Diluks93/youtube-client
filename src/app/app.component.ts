@@ -30,7 +30,17 @@ export class AppComponent {
   @Output()
   public isClickingCountOfViewsChange = new EventEmitter<boolean>();
 
-  public toggleClick(value: boolean): void {
+  public toggleClickCountOfViews(value: boolean): void {
     this.isClickingCountOfViewsChange.emit((this.isClickingCountOfViews = value));
+  }
+
+  @Input()
+  public isClickingDate: boolean | undefined = undefined;
+
+  @Output()
+  public isClickingDateChange = new EventEmitter<boolean>();
+
+  public toggleClickDate(value: boolean): void {
+    this.isClickingDateChange.emit((this.isClickingDate = value));
   }
 }

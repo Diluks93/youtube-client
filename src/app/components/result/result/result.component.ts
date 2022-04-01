@@ -15,6 +15,9 @@ export class ResultComponent implements OnInit {
   public isClickingCountOfViews: boolean | undefined = undefined;
 
   @Input()
+  public isClickingDate: boolean | undefined = undefined;
+
+  @Input()
   public value: string = '';
 
   @Output()

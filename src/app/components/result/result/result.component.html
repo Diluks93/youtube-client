@@ -3,5 +3,5 @@
   [podcast]="podcast"
   *ngFor="let podcast of podcasts
     | filter:value
-    | orderBy: isClickingCountOfViews"
+    | orderBy: isClickingCountOfViews: isClickingDate"
   ></app-card>

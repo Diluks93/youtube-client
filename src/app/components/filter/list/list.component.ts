@@ -21,8 +21,18 @@ export class ListComponent {
   @Output()
   public isClickingCountOfViewsChange = new EventEmitter<boolean>();
 
-  public toggleClick(): void {
+  public toggleClickCountOfViews(): void {
     this.isClickingCountOfViews = !this.isClickingCountOfViews;
     this.isClickingCountOfViewsChange.emit(this.isClickingCountOfViews);
+  }
+
+  public isClickingDate: boolean | undefined = undefined;
+
+  @Output()
+  public isClickingDateChange = new EventEmitter<boolean>();
+
+  public toggleClickDate(): void {
+    this.isClickingDate = !this.isClickingDate;
+    this.isClickingDateChange.emit(this.isClickingDate);
   }
 }
