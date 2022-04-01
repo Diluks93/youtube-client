@@ -20,6 +20,6 @@
     more...
   </button>
   <mat-card-footer>
-    <div appStatusPublications [podcast]="podcast" class="status-publications"></div>
+    <div [appStatusPublications]="podcast?.publishedAt" class="status-publications"></div>
   </mat-card-footer>
 </mat-card>

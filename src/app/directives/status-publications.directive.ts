@@ -1,14 +1,11 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-
-import { Podcast } from 'src/app/services/podcast.service';
-
 @Directive({
   selector: '[appStatusPublications]',
 })
 export class StatusPublicationsDirective implements OnInit, AfterViewInit {
-  @Input()
-  public podcast: Podcast | null = null;
+  @Input('appStatusPublications')
+  public datePublished: string | undefined = undefined;
 
   private palette: ThemePalette = undefined;
 
@@ -23,7 +20,9 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    this.setColorFooter(this.podcast!);
+    if (this.datePublished) {
+      this.setColorFooter(this.datePublished);
+    }
     this.setColor();
   }
 
@@ -35,9 +34,9 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
     this.el.nativeElement.style.backgroundColor = this.color;
   }
 
-  private setColorFooter(podcast: Podcast): void {
+  private setColorFooter(date: string): void {
     const today = new Date();
-    const publishDate = new Date(podcast.publishedAt);
+    const publishDate = new Date(date);
     const weekAgo = this.setWeekAgo(today);
     const monthAgo = this.setMonthAgo(today);
 
