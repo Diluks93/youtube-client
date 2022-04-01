@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Renderer2, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 @Directive({
   selector: '[appStatusPublications]',
@@ -17,7 +17,7 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
 
   private MONTH_DECEMBER = 11;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private rerender2: Renderer2) {}
 
   ngOnInit() {
     if (this.datePublished) {
@@ -31,7 +31,12 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.el.nativeElement.style.backgroundColor = this.color;
+    // this.el.nativeElement.style.backgroundColor = this.color;
+    const divElement = this.rerender2.createElement('div');
+    this.rerender2.setStyle(divElement, 'background-color', this.color);
+    this.rerender2.addClass(divElement, 'status-publications');
+
+    this.rerender2.appendChild(this.el.nativeElement, divElement);
   }
 
   private setColorFooter(date: string): void {
