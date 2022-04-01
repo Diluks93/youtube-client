@@ -11,9 +11,10 @@ import { HeaderModule } from './components/header/header.module';
 import { FilterModule } from './components/filter/filter.module';
 import { ResultModule } from './components/result/result.module';
 import { PodcastService } from './services/podcast.service';
+// import { OrderByPipe } from './pipes/order-by.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent /* OrderByPipe */],
   imports: [
     BrowserModule,
     AppRoutingModule,

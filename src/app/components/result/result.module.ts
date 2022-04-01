@@ -7,6 +7,7 @@ import { MaterialModule } from 'src/app/modules/app-material.module';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { MySlicePipe } from 'src/app/pipes/my-slice.pipe';
 import { StatusPublicationsDirective } from 'src/app/directives/status-publications.directive';
+import { OrderByPipe } from 'src/app/pipes/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { StatusPublicationsDirective } from 'src/app/directives/status-publicati
     FilterPipe,
     MySlicePipe,
     StatusPublicationsDirective,
+    OrderByPipe,
   ],
   imports: [CommonModule, MaterialModule],
   exports: [ResultComponent],

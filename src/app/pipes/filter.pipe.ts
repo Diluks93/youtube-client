@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Podcast } from '../services/podcast.service';
+import { Podcast } from 'src/app/services/podcast.service';
 
 @Pipe({
   name: 'filter',

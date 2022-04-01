@@ -1,6 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { Podcast } from '../services/podcast.service';
+
+import { Podcast } from 'src/app/services/podcast.service';
 
 @Directive({
   selector: '[appStatusPublications]',

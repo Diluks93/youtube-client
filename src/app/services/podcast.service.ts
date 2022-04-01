@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { mockResponse } from '../mocks/mock-response';
+import { mockResponse } from 'src/app/mocks/mock-response';
 
 const podcasts = mockResponse.items;
 export class Podcast {

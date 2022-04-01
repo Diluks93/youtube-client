@@ -8,9 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SearchComponent {
   public value: string = '';
 
-  @Input() fetched = false;
+  @Input()
+  public fetched = false;
 
-  @Output() fetchedChange = new EventEmitter<boolean>();
+  @Output()
+  public fetchedChange = new EventEmitter<boolean>();
 
   public onSubmit(): void {
     this.fetched = true;

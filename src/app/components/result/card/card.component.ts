@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Podcast } from '../../../services/podcast.service';
+import { Podcast } from 'src/app/services/podcast.service';
 
 @Component({
   selector: 'app-card',
