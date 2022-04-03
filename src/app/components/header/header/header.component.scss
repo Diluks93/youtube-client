@@ -1,0 +1,19 @@
+app-logo {
+  flex: 1;
+  text-align: end;
+}
+app-search {
+  flex: 2;
+}
+app-setting-button {
+  flex: 1;
+}
+
+.login {
+  position: absolute;
+  right: 5em;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  column-gap: 1em;
+}
