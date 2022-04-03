@@ -3,12 +3,12 @@ export interface ResponseClient extends KindEtag {
   items: Array<ClientItem>;
 }
 
-interface PageInfo {
+export interface PageInfo {
   totalResults: number;
   resultsPerPage: number;
 }
 
-interface ClientItem {
+export interface ClientItem {
   kind: string;
   etag: string;
   id: string;
@@ -16,9 +16,9 @@ interface ClientItem {
   statistics: Statistics;
 }
 
-type KindEtag = Pick<ClientItem, 'kind' | 'etag'>;
+export type KindEtag = Pick<ClientItem, 'kind' | 'etag'>;
 
-interface Snippet {
+export interface Snippet {
   publishedAt: string;
   channelId: string;
   title: string;
@@ -33,26 +33,26 @@ interface Snippet {
   defaultLanguage?: 'ru' | 'en';
 }
 
-type Thumbnail = {
+export type Thumbnail = {
   [keys in PropCharacteristics]: Characteristics;
 };
 
-type PropCharacteristics = Required<'default' | 'medium' | 'high' | 'standard' | 'maxres'>;
+export type PropCharacteristics = Required<'default' | 'medium' | 'high' | 'standard' | 'maxres'>;
 
-interface Characteristics {
+export interface Characteristics {
   url: string;
   width: number;
   height: number;
 }
 
-type Localized = {
+export type Localized = {
   [keys in Required<'title' | 'description'>]: string;
 };
 
-type Statistics = {
+export type Statistics = {
   [keys in PropStatistics]: string;
 };
 
-type PropStatistics = Required<
+export type PropStatistics = Required<
   'viewCount' | 'likeCount' | 'dislikeCount' | 'favoriteCount' | 'commentCount'
 >;

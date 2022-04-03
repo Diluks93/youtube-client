@@ -6,17 +6,25 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() fetched = false;
+  private _fetched: boolean = false;
 
-  @Output() fetchedChange = new EventEmitter();
+  @Input()
+  public get fetched() {
+    return this._fetched;
+  }
 
-  @Output() changeFilterComponent = new EventEmitter();
+  @Output()
+  private fetchedChange = new EventEmitter<boolean>();
+
+  public set fetched(value: boolean) {
+    this._fetched = value;
+    this.fetchedChange.emit(this._fetched);
+  }
+
+  @Output()
+  private changeFilterComponent = new EventEmitter<boolean>();
 
   public toggleFilterComponent(): void {
     this.changeFilterComponent.emit(true);
-  }
-
-  public pipeFetchedChange(fetched: boolean): void {
-    this.fetchedChange.emit((this.fetched = fetched));
   }
 }

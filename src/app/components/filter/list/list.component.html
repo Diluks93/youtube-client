@@ -4,18 +4,17 @@
     <button
       mat-flat-button color="accent"
       (click)="toggleClickDate()"
-      >date</button>
+    >date</button>
   </mat-list-item>
   <mat-list-item role="listitem">
     <button
       mat-flat-button color="accent"
       (click)="toggleClickCountOfViews()"
-      >count of views</button>
+    >count of views</button>
   </mat-list-item>
   <mat-list-item role="listitem">
     <app-input
-      (valueChange)="pipeValueChange($event)"
-      [value]="value"
-      ></app-input>
+      [(valueThatUserTypes)]="valueThatUserTypes"
+    ></app-input>
   </mat-list-item>
 </mat-list>

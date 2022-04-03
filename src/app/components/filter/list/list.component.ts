@@ -1,38 +1,55 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { StateListComponent } from 'src/app/models/state-model';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
+  private state: StateListComponent = {
+    valueThatUserTypes: '',
+    isClickingCountOfViews: undefined,
+    isClickingDate: undefined,
+  };
+
   @Input()
-  public value: string = '';
-
-  @Output()
-  public valueChange = new EventEmitter<string>();
-
-  public pipeValueChange(value: string): void {
-    this.valueChange.emit((this.value = value));
+  public get valueThatUserTypes(): string {
+    return this.state.valueThatUserTypes;
   }
 
-  public isClickingCountOfViews: boolean | undefined = undefined;
+  @Input()
+  public get isClickingCountOfViews(): boolean | undefined {
+    return this.state.isClickingCountOfViews;
+  }
+
+  @Input()
+  public get isClickingDate(): boolean | undefined {
+    return this.state.isClickingDate;
+  }
 
   @Output()
-  public isClickingCountOfViewsChange = new EventEmitter<boolean>();
+  private valueThatUserTypesChange = new EventEmitter<string>();
+
+  @Output()
+  private isClickingCountOfViewsChange = new EventEmitter<boolean>();
+
+  @Output()
+  private isClickingDateChange = new EventEmitter<boolean>();
+
+  public set valueThatUserTypes(value: string) {
+    this.state.valueThatUserTypes = value;
+    this.valueThatUserTypesChange.emit(this.state.valueThatUserTypes);
+  }
 
   public toggleClickCountOfViews(): void {
-    this.isClickingCountOfViews = !this.isClickingCountOfViews;
-    this.isClickingCountOfViewsChange.emit(this.isClickingCountOfViews);
+    this.state.isClickingCountOfViews = !this.state.isClickingCountOfViews;
+    this.isClickingCountOfViewsChange.emit(this.state.isClickingCountOfViews);
   }
 
-  public isClickingDate: boolean | undefined = undefined;
-
-  @Output()
-  public isClickingDateChange = new EventEmitter<boolean>();
-
   public toggleClickDate(): void {
-    this.isClickingDate = !this.isClickingDate;
-    this.isClickingDateChange.emit(this.isClickingDate);
+    this.state.isClickingDate = !this.state.isClickingDate;
+    this.isClickingDateChange.emit(this.state.isClickingDate);
   }
 }

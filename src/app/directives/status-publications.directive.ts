@@ -20,9 +20,7 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
   constructor(private el: ElementRef, private rerender2: Renderer2) {}
 
   ngOnInit() {
-    if (this.datePublished) {
-      this.setColorFooter(this.datePublished);
-    }
+    this.setColorFooter(this.datePublished || '');
     this.setColor();
   }
 
@@ -31,7 +29,6 @@ export class StatusPublicationsDirective implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.el.nativeElement.style.backgroundColor = this.color;
     const divElement = this.rerender2.createElement('div');
     this.rerender2.setStyle(divElement, 'background-color', this.color);
     this.rerender2.addClass(divElement, 'status-publications');

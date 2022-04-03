@@ -6,39 +6,43 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  private _valueThatUserTypes: string = '';
+
+  public toggleFilterComponent = false;
+
   @Input()
-  public value: string = '';
-
-  @Output()
-  public valueChange = new EventEmitter<string>();
-
-  public pipeValueChange(value: string): void {
-    this.valueChange.emit((this.value = value));
+  public get valueThatUserTypes(): string {
+    return this._valueThatUserTypes;
   }
 
   @Input()
   public fetched = false;
 
-  @Output()
-  public fetchedChange = new EventEmitter<boolean>();
-
-  public toggleFilterComponent = false;
-
   @Input()
   public isClickingCountOfViews: boolean | undefined = undefined;
-
-  @Output()
-  public isClickingCountOfViewsChange = new EventEmitter<boolean>();
-
-  public toggleClickCountOfViews(value: boolean): void {
-    this.isClickingCountOfViewsChange.emit((this.isClickingCountOfViews = value));
-  }
 
   @Input()
   public isClickingDate: boolean | undefined = undefined;
 
   @Output()
   public isClickingDateChange = new EventEmitter<boolean>();
+
+  @Output()
+  private valueThatUserTypesChange = new EventEmitter<string>();
+
+  @Output()
+  public fetchedChange = new EventEmitter<boolean>();
+
+  @Output()
+  public isClickingCountOfViewsChange = new EventEmitter<boolean>();
+
+  public set valueThatUserTypes(value: string) {
+    this.valueThatUserTypesChange.emit((this._valueThatUserTypes = value));
+  }
+
+  public toggleClickCountOfViews(value: boolean): void {
+    this.isClickingCountOfViewsChange.emit((this.isClickingCountOfViews = value));
+  }
 
   public toggleClickDate(value: boolean): void {
     this.isClickingDateChange.emit((this.isClickingDate = value));

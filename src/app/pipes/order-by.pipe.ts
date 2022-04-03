@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Podcast } from '../services/podcast.service';
 
 /**
- * order-by value['viewCount'] or value['publishedAt] of direction
+ * order-by value['viewCount'] as number or value['publishedAt] of direction
  * @param{Podcast[]} podcasts
  * @param{boolean|undefined} directionCountOfView
  * @param{boolean|undefined} directionDate
@@ -12,28 +12,31 @@ import { Podcast } from '../services/podcast.service';
   name: 'orderBy',
 })
 export class OrderByPipe implements PipeTransform {
-  transform(
-    value: Array<Podcast>,
-    directionCountOfView: boolean | undefined,
-    directionDate: boolean | undefined = undefined,
-  ): Array<Podcast> {
-    if (directionCountOfView === undefined) return value;
-    if (directionDate === undefined) {
-      return value.sort((a, b) => {
-        if (directionCountOfView) {
-          return +a.viewCount - +b.viewCount;
-        } else {
-          return +b.viewCount - +a.viewCount;
-        }
-      });
-    } else {
-      return value.sort((a, b) => {
-        if (directionDate) {
-          return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
-        } else {
-          return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-        }
-      });
+  transform(value: Array<Podcast>, ...args: [string, boolean | undefined]): Array<Podcast> {
+    const [type, predicate] = args;
+
+    if (predicate === undefined) return value;
+
+    switch (type) {
+      case 'date': {
+        return value.sort((a, b) => {
+          const firstDate = new Date(a.publishedAt).getDate();
+          const secondDate = new Date(b.publishedAt).getDate();
+
+          return predicate ? firstDate - secondDate : secondDate - firstDate;
+        });
+      }
+      case 'viewCount': {
+        return value.sort((a, b) => {
+          const firstViewCount = +a.viewCount;
+          const secondViewCount = +b.viewCount;
+
+          return predicate ? firstViewCount - secondViewCount : secondViewCount - firstViewCount;
+        });
+      }
+      default: {
+        return value;
+      }
     }
   }
 }

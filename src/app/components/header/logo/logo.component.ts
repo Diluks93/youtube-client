@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-logo',
-  template: '<mat-icon svgIcon="logo" class="logo"></mat-icon>',
+  template: ` <mat-icon svgIcon="logo" class="logo"></mat-icon> `,
   styleUrls: ['./logo.component.scss'],
 })
 export class LogoComponent {

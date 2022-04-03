@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { mockResponse } from 'src/app/mocks/mock-response';
 
-const podcasts = mockResponse.items;
+import { mockResponse } from 'src/app/mocks/mock-response';
+import { ClientItem } from '../models/response-client.model';
+
+const podcasts: Array<ClientItem> = mockResponse.items;
 export class Podcast {
   constructor(
     readonly id: string,
@@ -15,7 +17,6 @@ export class Podcast {
     readonly publishedAt: string,
     readonly width?: number,
     readonly height?: number,
-    readonly tags?: Array<string>,
   ) {}
 }
 
@@ -36,7 +37,6 @@ export class PodcastService {
           podcast.snippet.publishedAt,
           podcast.snippet.thumbnails.default.width,
           podcast.snippet.thumbnails.default.height,
-          podcast.snippet.tags,
         ),
     );
   }

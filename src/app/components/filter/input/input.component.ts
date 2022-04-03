@@ -5,17 +5,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './input.component.html',
 })
 export class InputComponent {
-  public inputValue: string = '';
+  private _valueThatUserTypes: string = '';
 
-  @Output() valueChange = new EventEmitter();
+  @Output()
+  private valueThatUserTypesChange = new EventEmitter<string>();
 
   @Input()
-  public get value() {
-    return this.inputValue;
+  public get valueThatUserTypes(): string {
+    return this._valueThatUserTypes;
   }
 
-  public set value(val: string) {
-    this.inputValue = val;
-    this.valueChange.emit(this.inputValue);
+  public set valueThatUserTypes(value: string) {
+    this._valueThatUserTypes = value;
+    this.valueThatUserTypesChange.emit(this._valueThatUserTypes);
   }
 }
