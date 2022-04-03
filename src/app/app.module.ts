@@ -7,21 +7,41 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './modules/app-material.module';
 import { AppComponent } from './app.component';
-import { HeaderModule } from './components/header/header.module';
-import { FilterModule } from './components/filter/filter.module';
-import { ResultModule } from './components/result/result.module';
 import { PodcastService } from './services/podcast.service';
+import { ListComponent } from './components/filter/list/list.component';
+import { InputComponent } from './components/filter/input/input.component';
+import { HeaderComponent } from './components/header/header/header.component';
+import { LoginInformationBlockComponent } from './components/header/login-information-block/login-information-block.component';
+import { SettingButtonComponent } from './components/header/setting-button/setting-button.component';
+import { SearchComponent } from './components/header/search/search.component';
+import { LogoComponent } from './components/header/logo/logo.component';
+import { ResultComponent } from './components/result/result.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { MySlicePipe } from './pipes/my-slice.pipe';
+import { StatusPublicationsDirective } from './directives/status-publications.directive';
+import { OrderByPipe } from './pipes/order-by.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    ListComponent,
+    InputComponent,
+    HeaderComponent,
+    LoginInformationBlockComponent,
+    SettingButtonComponent,
+    SearchComponent,
+    LogoComponent,
+    ResultComponent,
+    FilterPipe,
+    MySlicePipe,
+    StatusPublicationsDirective,
+    OrderByPipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    HeaderModule,
-    FilterModule,
-    ResultModule,
     HttpClientModule,
   ],
   providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
