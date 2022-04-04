@@ -1,4 +1,4 @@
-import { ResponseClient } from 'src/app/models/response-client.model';
+import { ResponseClient } from '../youtube/models/response-client.model';
 
 export const mockResponse: ResponseClient = {
   kind: 'youtube#videoListResponse',

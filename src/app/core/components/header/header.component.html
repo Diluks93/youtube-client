@@ -1,0 +1,10 @@
+<mat-toolbar color="accent" class="container header">
+  <app-logo></app-logo>
+  <app-search
+    [(fetched)]="fetched"
+  ></app-search>
+  <app-setting-button
+    (click)="toggleFilterComponent()"
+  ></app-setting-button>
+  <app-login-information-block class="login"></app-login-information-block>
+</mat-toolbar>

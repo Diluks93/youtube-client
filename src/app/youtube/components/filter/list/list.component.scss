@@ -1,0 +1,7 @@
+.flex {
+  display: flex;
+  & :nth-child(2),
+  & :nth-child(3) {
+    color: var(--bg);
+  }
+}

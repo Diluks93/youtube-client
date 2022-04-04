@@ -1,20 +1,5 @@
-<mat-toolbar color="accent" class="container">
-  <app-header
-    (changeFilterComponent)="toggleFilterComponent = !toggleFilterComponent"
-    class="header"
-    [(fetched)]="fetched"
-  ></app-header>
-  <app-list
-    *ngIf="toggleFilterComponent"
-    (valueThatUserTypesChange)="valueThatUserTypes = $event"
-    (isClickingCountOfViewsChange)="toggleClickCountOfViews($event)"
-    (isClickingDateChange)="toggleClickDate($event)"
-  ></app-list>
-</mat-toolbar>
-<app-result
-  *ngIf="fetched"
-  [valueThatUserTypes]="valueThatUserTypes"
-  [isClickingCountOfViews]="isClickingCountOfViews"
-  [isClickingDate]="isClickingDate"
-  class="container main"
-></app-result>
+<app-header></app-header>
+
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>

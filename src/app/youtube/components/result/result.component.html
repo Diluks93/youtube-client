@@ -1,0 +1,38 @@
+<mat-card class="card"
+  (valueThatUserTypes)="valueThatUserTypes"
+  *ngFor="let podcast of podcasts
+    | filter: valueThatUserTypes
+    | orderBy: 'viewCount' : isClickingCountOfViews
+    | orderBy: 'date' : isClickingDate; trackBy: identify"
+>
+  <img mat-card-image src={{podcast.preview}}
+      alt="preview podcast"
+      [ngStyle]="{'width':'{{podcast.width}}', 'height':'{{podcast.height}}'}">
+  <mat-card-actions>
+    <span *ngFor="let icon of nameIcons; index as i" class="flex">
+      <mat-icon>{{icon}}</mat-icon>
+      <span [ngSwitch]="i">
+        <ng-template [ngSwitchCase]="0">{{podcast.viewCount}}</ng-template>
+        <ng-template [ngSwitchCase]="1">{{podcast.dislikeCount}}</ng-template>
+        <ng-template [ngSwitchCase]="2">{{podcast.likeCount}}</ng-template>
+        <ng-template [ngSwitchCase]="3">{{podcast.commentCount}}</ng-template>
+      </span>
+    </span>
+  </mat-card-actions>
+  <mat-card-header>
+    <mat-card-title>{{podcast.title | mySlice}}</mat-card-title>
+  </mat-card-header>
+  <button
+    mat-raised-button
+    color="primary"
+    class="btn"
+    routerLink="{{podcast.id}}"
+  >
+    <mat-icon>info</mat-icon>more...
+  </button>
+  <mat-card-footer
+    [appStatusPublications]="podcast.publishedAt"
+  ></mat-card-footer>
+</mat-card>
+
+<router-outlet></router-outlet>
