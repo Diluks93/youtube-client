@@ -1,10 +1,13 @@
 <mat-toolbar color="accent" class="container header">
-  <app-logo></app-logo>
-  <app-search
+  <app-logo class="logo"></app-logo>
+  <app-search class="search"
     [(fetched)]="fetched"
   ></app-search>
-  <app-setting-button
-    (click)="toggleFilterComponent()"
-  ></app-setting-button>
+  <span class="setting-button">
+    <app-setting-button
+      *ngIf="isMainPageComponent"
+      (click)="toggleFilterComponent()"
+    ></app-setting-button>
+  </span>
   <app-login-information-block class="login"></app-login-information-block>
 </mat-toolbar>
