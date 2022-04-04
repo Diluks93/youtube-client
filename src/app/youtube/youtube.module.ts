@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { PodcastService } from './services/podcast.service';
 import { ListComponent } from './components/filter/list/list.component';
@@ -13,6 +12,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DetailedInformationPageComponent } from './pages/detailed-information-page/detailed-information-page.component';
+import { YoutubeRoutingModule } from './youtube-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { DetailedInformationPageComponent } from './pages/detailed-information-p
     MainPageComponent,
     DetailedInformationPageComponent,
   ],
-  imports: [SharedModule, CommonModule, RouterModule],
+  imports: [SharedModule, CommonModule, YoutubeRoutingModule],
   exports: [MainPageComponent, DetailedInformationPageComponent],
   providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
