@@ -1,4 +1,4 @@
-<form class="form-search" #form="ngForm" (ngSubmit)="onSubmit()">
+<form class="form-search" #form="ngForm" (ngSubmit)="onSubmit($event)">
   <mat-form-field class="full-width searchcomponent" appearance="standard">
     <mat-label>search podcasts by title</mat-label>
     <input type="search" name="search" matInput placeholder="search..." />

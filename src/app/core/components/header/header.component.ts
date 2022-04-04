@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+import { CoreService } from '../../services/core.service';
 
 @Component({
   selector: 'app-header',
@@ -8,39 +10,26 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private _fetched: boolean = false;
-
   private _isMainPageComponent: boolean = false;
 
   public get isMainPageComponent(): boolean {
     return this._isMainPageComponent;
   }
 
-  @Input()
-  public get fetched() {
-    return this._fetched;
-  }
+  private _toggleFilterComponent: boolean = false;
 
-  @Output()
-  private fetchedChange = new EventEmitter<boolean>();
-
-  public set fetched(value: boolean) {
-    this._fetched = value;
-    this.fetchedChange.emit(this._fetched);
-  }
-
-  @Output()
-  private changeFilterComponent = new EventEmitter<boolean>();
-
-  public toggleFilterComponent(): void {
-    this.changeFilterComponent.emit(true);
+  public toggleFilterComponent(value: unknown): void {
+    this._toggleFilterComponent = (value as boolean)
+      ? !this._toggleFilterComponent
+      : (value as boolean);
+    this.coreService.toggleFilterComponent(this._toggleFilterComponent);
   }
 
   protected event$?: Subscription;
 
   private readonly nameRoute: string = '/main-page';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private readonly coreService: CoreService) {}
 
   ngOnInit() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {

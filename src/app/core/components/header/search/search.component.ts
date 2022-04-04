@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
   selector: 'app-search',
@@ -6,14 +7,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  @Input()
-  public fetched = false;
+  private _fetched: boolean = false;
 
-  @Output()
-  public fetchedChange = new EventEmitter<boolean>();
-
-  public onSubmit(): void {
-    this.fetched = true;
-    this.fetchedChange.emit(this.fetched);
+  public onSubmit(value: unknown): void {
+    this._fetched = value as boolean;
+    this.coreService.isFetched(this._fetched);
   }
+
+  constructor(private readonly coreService: CoreService) {}
 }

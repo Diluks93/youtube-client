@@ -1,22 +1,23 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent {
+export class MainPageComponent implements OnInit, OnDestroy {
   private _valueThatUserTypes: string = '';
 
-  public toggleFilterComponent = false;
+  private _toggleFilterComponent: boolean = false;
+
+  private _fetched: boolean = false;
 
   @Input()
   public get valueThatUserTypes(): string {
     return this._valueThatUserTypes;
   }
-
-  @Input()
-  public fetched = false;
 
   @Input()
   public isClickingCountOfViews: boolean | undefined = undefined;
@@ -31,9 +32,6 @@ export class MainPageComponent {
   private valueThatUserTypesChange = new EventEmitter<string>();
 
   @Output()
-  public fetchedChange = new EventEmitter<boolean>();
-
-  @Output()
   public isClickingCountOfViewsChange = new EventEmitter<boolean>();
 
   public set valueThatUserTypes(value: string) {
@@ -46,5 +44,33 @@ export class MainPageComponent {
 
   public toggleClickDate(value: boolean): void {
     this.isClickingDateChange.emit((this.isClickingDate = value));
+  }
+
+  private subscribeSettingBtn?: Subscription;
+
+  private subscribeFetched?: Subscription;
+
+  constructor(private readonly coreService: CoreService) {}
+
+  ngOnInit() {
+    this.subscribeSettingBtn = this.coreService.click$.subscribe((value: boolean) => {
+      this._toggleFilterComponent = value;
+    });
+    this.subscribeFetched = this.coreService.fetched$.subscribe((value: boolean) => {
+      this._fetched = value;
+    });
+  }
+
+  public get fetched(): boolean {
+    return this._fetched;
+  }
+
+  public get toggleFilterComponent() {
+    return this._toggleFilterComponent;
+  }
+
+  ngOnDestroy(): void {
+    this.subscribeSettingBtn?.unsubscribe();
+    this.subscribeFetched?.unsubscribe();
   }
 }

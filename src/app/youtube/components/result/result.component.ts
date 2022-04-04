@@ -14,9 +14,9 @@ import { Podcast, PodcastService } from '../../services/podcast.service';
 export class ResultComponent implements OnInit {
   public podcasts: Array<Podcast> = [];
 
-  podcasts$?: Observable<Podcast>;
+  public podcasts$?: Observable<Podcast>;
 
-  selectedId?: number;
+  protected selectedId?: number;
 
   private _nameIcons = ['visibility', 'thumb_down_alt', 'thumb_up_alt', 'question_answer'];
 
