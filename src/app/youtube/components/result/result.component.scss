@@ -2,6 +2,7 @@
   max-width: 300px;
   margin: 1em;
   background: var(--accent);
+  box-shadow: 7px 7px 7px 0px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
 }
 
 .mat-card-image {
@@ -13,16 +14,6 @@
   }
 }
 
-.mat-card-actions {
-  margin-top: 1em;
-  margin-left: 0px;
-  margin-right: 0px;
-  padding: 0;
-  display: flex;
-  align-content: center;
-  justify-content: space-around;
-}
-
 .mat-card-header {
   justify-content: center;
 }
@@ -32,13 +23,6 @@
   width: 50%;
   left: 45%;
   transform: translateX(-50%);
-}
-
-.flex {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  justify-content: space-around;
 }
 
 .status-publications {

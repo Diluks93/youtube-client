@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -15,11 +15,7 @@ import { Podcast } from '../../models/podcast-model';
 export class DetailedInformationPageComponent implements OnInit {
   public podcast$!: Observable<Podcast | undefined>;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private podcastService: PodcastService,
-  ) {}
+  constructor(private route: ActivatedRoute, private podcastService: PodcastService) {}
 
   ngOnInit(): void {
     this.podcast$ = this.route.paramMap.pipe(
@@ -27,8 +23,7 @@ export class DetailedInformationPageComponent implements OnInit {
     );
   }
 
-  public gotoMainPage(podcast: Podcast): void {
-    const podcastId: string = podcast ? podcast.id : '';
-    this.router.navigate(['/main-page', { id: podcastId }]);
+  public goBack(): void {
+    window.history.back();
   }
 }

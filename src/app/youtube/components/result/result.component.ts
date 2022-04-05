@@ -17,17 +17,6 @@ export class ResultComponent implements OnInit {
 
   protected selectedId: string = '';
 
-  private readonly _nameIcons: string[] = [
-    'visibility',
-    'thumb_down_alt',
-    'thumb_up_alt',
-    'question_answer',
-  ];
-
-  public get nameIcons(): Array<string> {
-    return this._nameIcons;
-  }
-
   @Input()
   public isClickingCountOfViews: boolean | undefined = undefined;
 

@@ -11,10 +11,9 @@ export class PageNotFoundComponent implements OnInit {
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
   private setHeight() {
-    const parentNode: ParentNode = this.renderer.parentNode(this.elementRef.nativeElement);
     const windowHigh: number = window.innerHeight;
 
-    this.height = (parentNode.firstChild?.firstChild as Element).clientHeight;
+    this.height = document.body.children[0].children[0].children[0].clientHeight;
     this.renderer.setStyle(
       this.elementRef.nativeElement,
       'height',

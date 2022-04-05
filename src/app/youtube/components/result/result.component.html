@@ -12,17 +12,7 @@
     <img mat-card-image src={{podcast.preview}}
         alt="preview podcast"
         [ngStyle]="{'width':'{{podcast.width}}', 'height':'{{podcast.height}}'}">
-    <mat-card-actions>
-      <span *ngFor="let icon of nameIcons; index as i" class="flex">
-        <mat-icon>{{icon}}</mat-icon>
-        <span [ngSwitch]="i">
-          <ng-template [ngSwitchCase]="0">{{podcast.viewCount}}</ng-template>
-          <ng-template [ngSwitchCase]="1">{{podcast.dislikeCount}}</ng-template>
-          <ng-template [ngSwitchCase]="2">{{podcast.likeCount}}</ng-template>
-          <ng-template [ngSwitchCase]="3">{{podcast.commentCount}}</ng-template>
-        </span>
-      </span>
-    </mat-card-actions>
+    <app-statistics-view [podcast]="podcast"></app-statistics-view>
     <mat-card-header>
       <mat-card-title>{{podcast.title | mySlice}}</mat-card-title>
     </mat-card-header>

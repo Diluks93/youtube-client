@@ -14,6 +14,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DetailedInformationPageComponent } from './pages/detailed-information-page/detailed-information-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { AnimationComponent } from './components/animation/animation.component';
+import { StatisticsViewComponent } from './components/statistics-view/statistics-view.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AnimationComponent } from './components/animation/animation.component';
     MainPageComponent,
     DetailedInformationPageComponent,
     AnimationComponent,
+    StatisticsViewComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
   exports: [MainPageComponent, DetailedInformationPageComponent, AnimationComponent],
