@@ -1,1 +1,6 @@
 <p>detailed-information-page works!</p>
+<div *ngIf="podcast$ | async as podcast">
+  <h3>{{ podcast.title }}</h3>
+  <p>Id: {{ podcast.id }}</p>
+  <button type="button" (click)="gotoMainPage(podcast)">Back</button>
+</div>

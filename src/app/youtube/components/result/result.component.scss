@@ -46,3 +46,18 @@
   border-bottom-left-radius: 4px;
   height: 0.4em;
 }
+
+.container {
+  margin: 0 auto;
+  flex-direction: column;
+  height: auto;
+}
+
+.main {
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}

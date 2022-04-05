@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Podcast } from '../services/podcast.service';
+import { Podcast } from '../models/podcast-model';
 
 /**
  * order-by value['viewCount'] as number or value['publishedAt] of direction

@@ -13,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DetailedInformationPageComponent } from './pages/detailed-information-page/detailed-information-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
+import { AnimationComponent } from './components/animation/animation.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,10 @@ import { YoutubeRoutingModule } from './youtube-routing.module';
     ResultComponent,
     MainPageComponent,
     DetailedInformationPageComponent,
+    AnimationComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
-  exports: [MainPageComponent, DetailedInformationPageComponent],
+  exports: [MainPageComponent, DetailedInformationPageComponent, AnimationComponent],
   providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
 export class YouTubeModule {}

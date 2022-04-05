@@ -1,24 +1,28 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Podcast, PodcastService } from '../../services/podcast.service';
+import { Podcast } from '../../models/podcast-model';
+import { PodcastService } from '../../services/podcast.service';
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.scss'],
-  providers: [PodcastService],
 })
 export class ResultComponent implements OnInit {
-  public podcasts: Array<Podcast> = [];
+  public podcasts$!: Observable<Podcast[]>;
 
-  public podcasts$?: Observable<Podcast>;
+  protected selectedId: string = '';
 
-  protected selectedId?: number;
-
-  private _nameIcons = ['visibility', 'thumb_down_alt', 'thumb_up_alt', 'question_answer'];
+  private readonly _nameIcons: string[] = [
+    'visibility',
+    'thumb_down_alt',
+    'thumb_up_alt',
+    'question_answer',
+  ];
 
   public get nameIcons(): Array<string> {
     return this._nameIcons;
@@ -38,11 +42,11 @@ export class ResultComponent implements OnInit {
 
   constructor(private podcastService: PodcastService, private route: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.podcasts = this.podcastService.getPodcasts();
+  ngOnInit(): void {
     this.podcasts$ = this.route.paramMap.pipe(
       switchMap((params) => {
-        this.selectedId = Number(params.get('id'));
+        this.selectedId = params.get('id') as string;
+
         return this.podcastService.getPodcasts();
       }),
     );

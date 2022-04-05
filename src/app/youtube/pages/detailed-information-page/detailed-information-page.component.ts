@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-//import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { ClientItem } from '../../models/response-client.model';
-import { Podcast, PodcastService } from '../../services/podcast.service';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { PodcastService } from '../../services/podcast.service';
+import { Podcast } from '../../models/podcast-model';
 
 @Component({
   selector: 'app-detailed-information-page',
   templateUrl: './detailed-information-page.component.html',
   styleUrls: ['./detailed-information-page.component.scss'],
-  providers: [PodcastService],
 })
 export class DetailedInformationPageComponent implements OnInit {
-  podcast$?: ClientItem;
+  public podcast$!: Observable<Podcast | undefined>;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,12 +22,13 @@ export class DetailedInformationPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const podcastId = this.route.snapshot.paramMap.get('id') || '';
-    this.podcast$ = this.podcastService.getPodcastsById(podcastId);
+    this.podcast$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.podcastService.getPodcastsById(params.get('id')!)),
+    );
   }
 
-  gotoItems(podcast: Podcast) {
-    const podcastId = podcast ? podcast.id : null;
-    this.router.navigate(['/podcasts', { id: podcastId }]);
+  public gotoMainPage(podcast: Podcast): void {
+    const podcastId: string = podcast ? podcast.id : '';
+    this.router.navigate(['/main-page', { id: podcastId }]);
   }
 }

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+
 import { Subscription } from 'rxjs';
+
 import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
@@ -52,7 +54,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(private readonly coreService: CoreService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscribeSettingBtn = this.coreService.click$.subscribe((value: boolean) => {
       this._toggleFilterComponent = value;
     });
@@ -65,7 +67,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     return this._fetched;
   }
 
-  public get toggleFilterComponent() {
+  public get toggleFilterComponent(): boolean {
     return this._toggleFilterComponent;
   }
 

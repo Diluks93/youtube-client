@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Podcast } from '../services/podcast.service';
+import { Podcast } from '../models/podcast-model';
 
 @Pipe({
   name: 'filter',
@@ -10,6 +10,8 @@ export class FilterPipe implements PipeTransform {
       return podcasts;
     }
 
-    return podcasts.filter((podcast) => podcast.title.toLowerCase().includes(value.toLowerCase()));
+    return podcasts.filter((podcast) =>
+      podcast.title.toLowerCase().includes(value.toLowerCase().trim()),
+    );
   }
 }

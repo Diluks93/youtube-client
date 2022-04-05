@@ -13,12 +13,12 @@ import { CoreModule } from './core/core.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    YouTubeModule,
     SharedModule,
-    CoreModule,
+    YouTubeModule,
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent],
 })

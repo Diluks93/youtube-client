@@ -8,13 +8,13 @@ const routes: Routes = [
     loadChildren: () => import('./youtube/youtube.module').then((m) => m.YouTubeModule),
   },
   {
+    path: 'login-page',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: '',
     redirectTo: '/main-page',
     pathMatch: 'full',
-  },
-  {
-    path: 'login-page',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '**',
