@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private readonly coreService: CoreService) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
         this._isMainPageComponent =
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.event$?.unsubscribe();
   }
 }

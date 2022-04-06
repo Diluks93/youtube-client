@@ -470,7 +470,7 @@ export const mockResponse: ResponseClient = {
       etag: '"Fznwjl6JEQdo1MGvHOGaz_YanRU/u2qq5ltpXouoIrpkJgGLu8YOIeg"',
       id: 'u1VCxpvDgsk',
       snippet: {
-        publishedAt: '2021-12-01T15:00:05.000Z',
+        publishedAt: '2022-04-03T12:42:19.000Z',
         channelId: 'UCvuY904el7JvBlPbdqbfguw',
         title: 'Уроки Angular для начинающих / #1 - Введение в Angular',
         description:

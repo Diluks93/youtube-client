@@ -17,13 +17,9 @@ export class DetailedInformationPageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private podcastService: PodcastService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.podcast$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.podcastService.getPodcastsById(params.get('id')!)),
     );
-  }
-
-  public goBack(): void {
-    window.history.back();
   }
 }
