@@ -8,6 +8,7 @@
       | filter: valueThatUserTypes
       | orderBy: 'viewCount' : isClickingCountOfViews
       | orderBy: 'date' : isClickingDate; trackBy: identify"
+      [appStatusPublications]="podcast.publishedAt"
   >
     <img mat-card-image src={{podcast.preview}}
         alt="preview podcast"
@@ -24,9 +25,6 @@
     >
       <mat-icon>info</mat-icon>more...
     </button>
-    <mat-card-footer
-      [appStatusPublications]="podcast.publishedAt"
-    ></mat-card-footer>
   </mat-card>
 </ng-container>
 

@@ -1,71 +1,61 @@
 import { AfterViewInit, Directive, ElementRef, Renderer2, Input, OnInit } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+
+import { MyThemePalette } from '../models/theme-palette';
 
 @Directive({
   selector: '[appStatusPublications]',
 })
 export class StatusPublicationsDirective implements OnInit, AfterViewInit {
   @Input('appStatusPublications')
-  public datePublished: string | undefined = undefined;
+  public datePublished?: string;
 
-  private palette: ThemePalette = undefined;
-
-  private color: string = '';
+  private color?: MyThemePalette;
 
   private SEVEN_DAYS = 7;
 
-  private DAYS_PER_MONTH = 30 - this.SEVEN_DAYS;
+  private NUMBER_OF_DAYS_IN_MONTH: number = 30;
 
-  private MONTH_DECEMBER = 11;
+  private NUMBER_OF_DAYS_IN_HALF_PAST_YEAR = 183;
 
-  constructor(private el: ElementRef, private rerender2: Renderer2) {}
+  constructor(private element: ElementRef, private rerender2: Renderer2) {}
 
-  ngOnInit() {
-    this.setColorFooter(this.datePublished || '');
-    this.setColor();
-  }
+  /**
+   * @description Set the color of the footer in depending of the date of publication podcast
+   * @param(string) date of publication
+   */
+  private setColorBorderBottom(date: string | undefined): void {
+    if (!date) {
+      this.color = 'bg';
+    }
 
-  private setColor(): string {
-    return (this.color = `var(--${this.palette})`);
-  }
-
-  ngAfterViewInit() {
-    const divElement = this.rerender2.createElement('div');
-    this.rerender2.setStyle(divElement, 'background-color', this.color);
-    this.rerender2.addClass(divElement, 'status-publications');
-
-    this.rerender2.appendChild(this.el.nativeElement, divElement);
-  }
-
-  private setColorFooter(date: string): void {
+    const datePublished = new Date(date as string);
     const today = new Date();
-    const publishDate = new Date(date);
-    const weekAgo = this.setWeekAgo(today);
-    const monthAgo = this.setMonthAgo(today);
+    const diff = Math.abs(today.getTime() - datePublished.getTime());
+    const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
 
-    if (
-      publishDate.getDate() > weekAgo &&
-      publishDate.getMonth() === today.getMonth() &&
-      publishDate.getFullYear() === today.getFullYear()
-    ) {
-      this.palette = 'accent';
+    if (diffDays <= this.SEVEN_DAYS) {
+      this.color = 'fg';
+    } else if (diffDays > this.SEVEN_DAYS && diffDays <= this.NUMBER_OF_DAYS_IN_MONTH) {
+      this.color = 'warn';
     } else if (
-      publishDate.getMonth() > monthAgo &&
-      publishDate.getFullYear() === today.getFullYear()
+      diffDays > this.NUMBER_OF_DAYS_IN_MONTH &&
+      diffDays <= this.NUMBER_OF_DAYS_IN_HALF_PAST_YEAR
     ) {
-      this.palette = 'warn';
+      this.color = 'primary';
     } else {
-      this.palette = 'primary';
+      this.color = 'accent';
     }
   }
 
-  private setWeekAgo(today: Date): number {
-    return today.getDate() > this.SEVEN_DAYS
-      ? today.getDate() - this.SEVEN_DAYS
-      : today.getDate() + this.DAYS_PER_MONTH;
+  ngOnInit() {
+    this.setColorBorderBottom(this.datePublished);
   }
 
-  private setMonthAgo(today: Date): number {
-    return today.getMonth() > 1 ? today.getMonth() - 1 : this.MONTH_DECEMBER;
+  ngAfterViewInit() {
+    this.rerender2.setStyle(
+      this.element.nativeElement,
+      'border-bottom',
+      `0.5em solid var(--${this.color})`,
+    );
   }
 }

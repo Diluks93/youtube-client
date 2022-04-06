@@ -37,8 +37,6 @@ $radius: 1em;
       justify-content: space-between;
       flex-wrap: nowrap;
       align-items: stretch;
-      //directive
-      border-bottom: 0.5em solid var(--primary);
       border-bottom-right-radius: inherit;
       .header {
         display: flex;

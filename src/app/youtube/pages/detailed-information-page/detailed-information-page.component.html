@@ -14,10 +14,10 @@
       <mat-card-actions>
         <img mat-card-image src={{podcast.preview}} alt="preview podcast">
       </mat-card-actions>
-      <article class="article">
+      <article class="article" [appStatusPublications]="podcast.publishedAt">
         <header class="header">
           <h2 class="header-title">{{podcast.title}}</h2>
-          <time class="header-time">{{podcast. publishedAt | date: 'fullDate'}}</time>
+          <time class="header-time">{{podcast.publishedAt | date: 'fullDate'}}</time>
         </header>
         <mat-card-content>
           <h3>Description</h3>
