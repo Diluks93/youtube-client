@@ -13,9 +13,9 @@ import { CoreModule } from './core/core.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CoreModule,
     SharedModule,
     YouTubeModule,
     AppRoutingModule,
