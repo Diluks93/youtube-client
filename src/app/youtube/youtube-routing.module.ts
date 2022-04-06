@@ -13,10 +13,10 @@ const routes: Routes = [
     },
   },
   {
-    path: 'podcast/:id',
+    path: ':id',
     component: DetailedInformationPageComponent,
     data: {
-      animation: 'podcast',
+      animation: 'id',
     },
   },
 ];
