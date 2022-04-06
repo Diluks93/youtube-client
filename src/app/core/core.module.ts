@@ -9,7 +9,6 @@ import { SettingButtonComponent } from './components/header/setting-button/setti
 import { SearchComponent } from './components/header/search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     SettingButtonComponent,
     SearchComponent,
     PageNotFoundComponent,
-    LoginPageComponent,
   ],
   imports: [CommonModule, SharedModule],
   exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],

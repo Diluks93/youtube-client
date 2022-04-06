@@ -6,7 +6,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'main-page',
     component: MainPageComponent,
     data: {
       animation: 'main-page',
