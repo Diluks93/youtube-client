@@ -10,14 +10,14 @@ const routes: Routes = [
     path: '',
     component: MainPageComponent,
     data: {
-      animation: 'main-page',
+      animation: 'in',
     },
   },
   {
     path: 'main-page/:id',
     component: DetailedInformationPageComponent,
     data: {
-      animation: 'id',
+      animation: 'fade',
     },
     canActivate: [AuthGuard],
   },

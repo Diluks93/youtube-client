@@ -51,11 +51,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
     });
     this.subscribeFetched = this.coreService.fetched$.subscribe((value: boolean) => {
       this._fetched = value;
+      sessionStorage.setItem('fetched', `${true}`);
     });
   }
 
   public get fetched(): boolean {
-    return this._fetched;
+    return JSON.parse(sessionStorage.getItem('fetched') as string) || this._fetched;
   }
 
   public get toggleFilterComponent(): boolean {

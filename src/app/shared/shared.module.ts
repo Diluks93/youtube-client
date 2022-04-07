@@ -9,12 +9,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SharedComponent } from './components/shared/shared.component';
-import { SharedDirective } from './directives/shared.directive';
-import { SharedPipe } from './pipes/shared.pipe';
+import { AnimationComponent } from './components/animation/animation.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [SharedComponent, SharedDirective, SharedPipe],
+  declarations: [AnimationComponent],
+  imports: [RouterModule],
   exports: [
     MatTabsModule,
     MatInputModule,
@@ -26,6 +26,7 @@ import { SharedPipe } from './pipes/shared.pipe';
     MatProgressBarModule,
     ReactiveFormsModule,
     FormsModule,
+    AnimationComponent,
   ],
 })
 export class SharedModule {}

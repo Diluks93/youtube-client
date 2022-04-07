@@ -13,7 +13,6 @@ import { SharedModule } from '../shared/shared.module';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DetailedInformationPageComponent } from './pages/detailed-information-page/detailed-information-page.component';
 import { YoutubeRoutingModule } from './youtube-routing.module';
-import { AnimationComponent } from './components/animation/animation.component';
 import { StatisticsViewComponent } from './components/statistics-view/statistics-view.component';
 import { ButtonLogoutComponent } from './components/button-logout/button-logout.component';
 
@@ -28,12 +27,10 @@ import { ButtonLogoutComponent } from './components/button-logout/button-logout.
     ResultComponent,
     MainPageComponent,
     DetailedInformationPageComponent,
-    AnimationComponent,
     StatisticsViewComponent,
     ButtonLogoutComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
-  exports: [AnimationComponent],
   providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
 export class YouTubeModule {}

@@ -9,7 +9,7 @@ import {
 } from '@angular/animations';
 
 export const slideInAnimation = trigger('routeAnimation', [
-  transition('id <=> main-page', [
+  transition('fade <=> in', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style({

@@ -6,6 +6,9 @@ const routes: Routes = [
   {
     path: '',
     component: LoginPageComponent,
+    data: {
+      animation: 'fade',
+    },
   },
 ];
 
