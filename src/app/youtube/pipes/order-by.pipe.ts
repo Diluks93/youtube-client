@@ -12,10 +12,8 @@ import { Podcast } from '../models/podcast-model';
   name: 'orderBy',
 })
 export class OrderByPipe implements PipeTransform {
-  transform(value: Array<Podcast>, ...args: [string, boolean | undefined]): Array<Podcast> {
-    const [type, predicate] = args;
-
-    if (predicate === undefined) return value;
+  public transform<T extends Podcast[]>(value: T, type: string, isClick: boolean | undefined): T {
+    if (isClick === undefined) return value;
 
     switch (type) {
       case 'date': {
@@ -23,7 +21,7 @@ export class OrderByPipe implements PipeTransform {
           const firstDate = new Date(a.publishedAt).getDate();
           const secondDate = new Date(b.publishedAt).getDate();
 
-          return predicate ? firstDate - secondDate : secondDate - firstDate;
+          return isClick ? firstDate - secondDate : secondDate - firstDate;
         });
       }
       case 'viewCount': {
@@ -31,7 +29,7 @@ export class OrderByPipe implements PipeTransform {
           const firstViewCount = +a.viewCount;
           const secondViewCount = +b.viewCount;
 
-          return predicate ? firstViewCount - secondViewCount : secondViewCount - firstViewCount;
+          return isClick ? firstViewCount - secondViewCount : secondViewCount - firstViewCount;
         });
       }
       default: {
