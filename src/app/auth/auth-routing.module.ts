@@ -5,7 +5,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login-page',
     component: LoginPageComponent,
     canActivate: [AuthGuard],
   },

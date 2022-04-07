@@ -13,7 +13,7 @@ const routes: Routes = [
     },
   },
   {
-    path: ':id',
+    path: 'main-page/:id',
     component: DetailedInformationPageComponent,
     data: {
       animation: 'id',
