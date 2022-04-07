@@ -14,11 +14,15 @@ export class AuthService {
   public login(): Observable<boolean> {
     return of(true).pipe(
       delay(1000),
-      tap(() => (this.isLoggedIn = true)),
+      tap(() => {
+        this.isLoggedIn = true;
+        localStorage.setItem('auth', `${this.isLoggedIn}`);
+      }),
     );
   }
 
   public logout(): void {
     this.isLoggedIn = false;
+    localStorage.clear();
   }
 }
