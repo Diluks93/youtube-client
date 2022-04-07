@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { StateListComponent } from 'src/app/youtube/models/state-model';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-filter-criteria-block',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
