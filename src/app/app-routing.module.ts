@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login-page',
+    pathMatch: 'full',
+  },
   {
     path: 'login-page',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
@@ -10,11 +16,7 @@ const routes: Routes = [
   {
     path: 'main-page',
     loadChildren: () => import('./youtube/youtube.module').then((m) => m.YouTubeModule),
-  },
-  {
-    path: '',
-    redirectTo: '/login-page',
-    pathMatch: 'full',
+    canLoad: [AuthGuard],
   },
   {
     path: '**',
@@ -23,11 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules,
-    }),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

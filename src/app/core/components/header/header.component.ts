@@ -35,8 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
-        this._isMainPageComponent =
-          event.url === this.nameRoute || event.url === '/' ? true : false;
+        this._isMainPageComponent = event.url === this.nameRoute ? true : false;
       }
     });
   }

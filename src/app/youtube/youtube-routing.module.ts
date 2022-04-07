@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 import { DetailedInformationPageComponent } from './pages/detailed-information-page/detailed-information-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 
 const routes: Routes = [
   {
-    path: 'main-page',
+    path: '',
     component: MainPageComponent,
     data: {
       animation: 'main-page',
@@ -18,6 +19,7 @@ const routes: Routes = [
     data: {
       animation: 'id',
     },
+    canActivate: [AuthGuard],
   },
 ];
 
