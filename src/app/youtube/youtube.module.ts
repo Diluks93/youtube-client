@@ -31,6 +31,7 @@ import { StatisticsViewComponent } from './components/statistics-view/statistics
     StatisticsViewComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
+  exports: [AnimationComponent],
   providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
 export class YouTubeModule {}
