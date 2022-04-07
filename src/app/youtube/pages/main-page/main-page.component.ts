@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -27,25 +27,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
   @Input()
   public isClickingDate: boolean | undefined = undefined;
 
-  @Output()
-  public isClickingDateChange = new EventEmitter<boolean>();
-
-  @Output()
-  private valueThatUserTypesChange = new EventEmitter<string>();
-
-  @Output()
-  public isClickingCountOfViewsChange = new EventEmitter<boolean>();
-
   public set valueThatUserTypes(value: string) {
-    this.valueThatUserTypesChange.emit((this._valueThatUserTypes = value));
+    this._valueThatUserTypes = value;
   }
 
   public toggleClickCountOfViews(value: boolean): void {
-    this.isClickingCountOfViewsChange.emit((this.isClickingCountOfViews = value));
+    this.isClickingCountOfViews = value;
   }
 
   public toggleClickDate(value: boolean): void {
-    this.isClickingDateChange.emit((this.isClickingDate = value));
+    this.isClickingDate = value;
   }
 
   private subscribeSettingBtn?: Subscription;
