@@ -10,15 +10,7 @@ import { NamePage } from '../../models/auth.model';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
-  private _hide: boolean = true;
-
-  public get hide(): boolean {
-    return this._hide;
-  }
-
-  public set hide(value: boolean) {
-    this._hide = value;
-  }
+  public hide: boolean = true;
 
   public message: string;
 

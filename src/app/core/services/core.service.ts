@@ -14,8 +14,8 @@ export class CoreService {
 
   public clickChange = new EventEmitter<boolean>();
 
-  public toggleComponent(value: boolean): void {
-    this._click = value ? !this._click : value;
+  public toggleComponent(value: unknown): void {
+    this._click = value ? !this._click : (value as boolean);
     this.clickChange.emit(this._click);
   }
 }

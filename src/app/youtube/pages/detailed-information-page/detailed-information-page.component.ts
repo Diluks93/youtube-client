@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { Podcast } from '../../models/podcast-model';
   selector: 'app-detailed-information-page',
   templateUrl: './detailed-information-page.component.html',
   styleUrls: ['./detailed-information-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailedInformationPageComponent implements OnInit {
   public podcast$!: Observable<Podcast | undefined>;

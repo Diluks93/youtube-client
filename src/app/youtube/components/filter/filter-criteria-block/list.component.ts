@@ -1,38 +1,23 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { StateListComponentModel } from 'src/app/youtube/models/state-model';
-
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-filter-criteria-block',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
-  private state: StateListComponentModel = {
-    valueThatUserTypes: '',
-    isClickingCountOfViews: undefined,
-    isClickingDate: undefined,
-    isDisabled: true,
-  };
+  private _valueThatUserTypes: string = '';
+
+  private _isDisabled: boolean = true;
 
   @Input()
   public get valueThatUserTypes(): string {
-    return this.state.valueThatUserTypes;
+    return this._valueThatUserTypes;
   }
 
-  @Input()
-  public get isClickingCountOfViews(): boolean | undefined {
-    return this.state.isClickingCountOfViews;
-  }
-
-  @Input()
-  public get isClickingDate(): boolean | undefined {
-    return this.state.isClickingDate;
-  }
-
-  get isDisabled(): boolean {
-    this.state.isDisabled = sessionStorage.getItem('fetched') ? false : true;
-    return this.state.isDisabled;
+  public get isDisabled(): boolean {
+    this._isDisabled = sessionStorage.getItem('fetched') ? false : true;
+    return this._isDisabled;
   }
 
   @Output()
@@ -45,17 +30,15 @@ export class ListComponent {
   private isClickingDateChange = new EventEmitter<boolean>();
 
   public set valueThatUserTypes(value: string) {
-    this.state.valueThatUserTypes = value;
-    this.valueThatUserTypesChange.emit(this.state.valueThatUserTypes);
+    this._valueThatUserTypes = value;
+    this.valueThatUserTypesChange.emit(this._valueThatUserTypes);
   }
 
-  public toggleClickCountOfViews(): void {
-    this.state.isClickingCountOfViews = !this.state.isClickingCountOfViews;
-    this.isClickingCountOfViewsChange.emit(this.state.isClickingCountOfViews);
-  }
-
-  public toggleClickDate(): void {
-    this.state.isClickingDate = !this.state.isClickingDate;
-    this.isClickingDateChange.emit(this.state.isClickingDate);
+  public toggleClick(value: boolean, index: number): void {
+    if (index === 0) {
+      this.isClickingDateChange.emit(value);
+    } else {
+      this.isClickingCountOfViewsChange.emit(value);
+    }
   }
 }

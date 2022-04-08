@@ -10,7 +10,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 export class MainPageComponent implements OnInit {
   private _valueThatUserTypes: string = '';
 
-  private _toggleFilterComponent: boolean = false;
+  public toggleFilterComponent: boolean = false;
 
   private _fetched: boolean = false;
 
@@ -46,15 +46,11 @@ export class MainPageComponent implements OnInit {
     });
 
     this.coreService.clickChange.subscribe((value: boolean) => {
-      this._toggleFilterComponent = value;
+      this.toggleFilterComponent = value;
     });
   }
 
   public get fetched(): boolean {
     return JSON.parse(sessionStorage.getItem('fetched') as string) || this._fetched;
-  }
-
-  public get toggleFilterComponent(): boolean {
-    return this._toggleFilterComponent;
   }
 }

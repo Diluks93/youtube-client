@@ -1,20 +1,13 @@
 <mat-list role="list" class="flex">
   <mat-list-item role="listitem">Sorting by:</mat-list-item>
-  <mat-list-item role="listitem">
-    <button
-      mat-flat-button color="accent"
-      (click)="toggleClickDate()"
-      disabled="{{isDisabled}}"
-      [ngClass]="isDisabled ? 'inactive' : ''"
-    >date</button>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <button
-      mat-flat-button color="accent"
-      (click)="toggleClickCountOfViews()"
-      disabled="{{isDisabled}}"
-      [ngClass]="isDisabled ? 'inactive' : ''"
-    >count of views</button>
+  <mat-list-item
+    *ngFor="let btn of ['date', 'count of views']; index as i"
+    role="listitem">
+    <app-button
+      [nameButton]="btn"
+      [isDisabled]="isDisabled"
+      (isClickedChange)="toggleClick($event, i)"
+    ></app-button>
   </mat-list-item>
   <mat-list-item role="listitem">
     <app-input

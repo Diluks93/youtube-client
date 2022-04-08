@@ -4,7 +4,7 @@
   <span class="setting-button">
     <app-setting-button
       *ngIf="isMainPageComponent"
-      (click)="toggleFilterComponent($event)"
+      (click)="coreService.toggleComponent($event)"
     ></app-setting-button>
   </span>
   <app-login-information-block class="login"></app-login-information-block>

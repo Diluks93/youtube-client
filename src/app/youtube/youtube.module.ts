@@ -14,6 +14,7 @@ import { DetailedInformationPageComponent } from './pages/detailed-information-p
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { StatisticsViewComponent } from './components/statistics-view/statistics-view.component';
 import { ButtonLogoutComponent } from './components/button-logout/button-logout.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ButtonLogoutComponent } from './components/button-logout/button-logout.
     DetailedInformationPageComponent,
     StatisticsViewComponent,
     ButtonLogoutComponent,
+    ButtonComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
 })

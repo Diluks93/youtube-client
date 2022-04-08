@@ -16,12 +16,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(private router: Router, private authService: AuthService) {}
 
-  public canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot): true | UrlTree {
-    const url = state.url;
-
-    return this.checkLogin(url);
-  }
-
   private checkLogin(url: string): true | UrlTree {
     if (this.authService.isLoggedIn) {
       return true;
@@ -30,6 +24,12 @@ export class AuthGuard implements CanActivate, CanLoad {
     this.authService.redirectToUrl = url;
 
     return this.router.parseUrl('/login-page');
+  }
+
+  public canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot): true | UrlTree {
+    const url = state.url;
+
+    return this.checkLogin(url);
   }
 
   public canLoad() {

@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class LogoComponent {
   private readonly path = 'assets/youtube-logo.svg';
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('logo', sanitizer.bypassSecurityTrustResourceUrl(this.path));
+  constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
+    this.iconRegistry.addSvgIcon('logo', this.sanitizer.bypassSecurityTrustResourceUrl(this.path));
   }
 }
