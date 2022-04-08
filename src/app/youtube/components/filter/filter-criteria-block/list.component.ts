@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { StateListComponent } from 'src/app/youtube/models/state-model';
+import { StateListComponentModel } from 'src/app/youtube/models/state-model';
 
 @Component({
   selector: 'app-filter-criteria-block',
@@ -8,10 +8,11 @@ import { StateListComponent } from 'src/app/youtube/models/state-model';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  private state: StateListComponent = {
+  private state: StateListComponentModel = {
     valueThatUserTypes: '',
     isClickingCountOfViews: undefined,
     isClickingDate: undefined,
+    isDisabled: true,
   };
 
   @Input()
@@ -27,6 +28,11 @@ export class ListComponent {
   @Input()
   public get isClickingDate(): boolean | undefined {
     return this.state.isClickingDate;
+  }
+
+  get isDisabled(): boolean {
+    this.state.isDisabled = sessionStorage.getItem('fetched') ? false : true;
+    return this.state.isDisabled;
   }
 
   @Output()

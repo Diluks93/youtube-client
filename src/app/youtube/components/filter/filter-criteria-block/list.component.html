@@ -4,17 +4,21 @@
     <button
       mat-flat-button color="accent"
       (click)="toggleClickDate()"
+      disabled="{{isDisabled}}"
+      [ngClass]="isDisabled ? 'inactive' : ''"
     >date</button>
   </mat-list-item>
   <mat-list-item role="listitem">
     <button
       mat-flat-button color="accent"
       (click)="toggleClickCountOfViews()"
+      disabled="{{isDisabled}}"
+      [ngClass]="isDisabled ? 'inactive' : ''"
     >count of views</button>
   </mat-list-item>
   <mat-list-item role="listitem">
     <app-input
-      [(valueThatUserTypes)]="valueThatUserTypes"
+      [(valueThatUserTypes)]="isDisabled ? '' : valueThatUserTypes"
     ></app-input>
   </mat-list-item>
 </mat-list>
