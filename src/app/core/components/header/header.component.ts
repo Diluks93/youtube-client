@@ -17,13 +17,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this._isMainPageComponent;
   }
 
-  private _toggleFilterComponent: boolean = false;
+  protected _toggleFilterComponent: boolean = false;
 
   public toggleFilterComponent(value: unknown): void {
-    this._toggleFilterComponent = (value as boolean)
-      ? !this._toggleFilterComponent
-      : (value as boolean);
-    this.coreService.toggleFilterComponent(this._toggleFilterComponent);
+    this.coreService.toggleComponent(value as boolean);
   }
 
   protected event$?: Subscription;
@@ -37,6 +34,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationStart) {
         this._isMainPageComponent = event.url === this.nameRoute ? true : false;
       }
+    });
+
+    this.coreService.clickChange.subscribe((value: boolean) => {
+      this._toggleFilterComponent = value;
     });
   }
 

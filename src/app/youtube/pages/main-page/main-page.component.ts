@@ -1,6 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { CoreService } from 'src/app/core/services/core.service';
 
@@ -9,7 +7,7 @@ import { CoreService } from 'src/app/core/services/core.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent implements OnInit {
   private _valueThatUserTypes: string = '';
 
   private _toggleFilterComponent: boolean = false;
@@ -39,19 +37,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.isClickingDate = value;
   }
 
-  private subscribeSettingBtn?: Subscription;
-
-  private subscribeFetched?: Subscription;
-
   constructor(private readonly coreService: CoreService) {}
 
   ngOnInit(): void {
-    this.subscribeSettingBtn = this.coreService.click$.subscribe((value: boolean) => {
-      this._toggleFilterComponent = value;
-    });
-    this.subscribeFetched = this.coreService.fetched$.subscribe((value: boolean) => {
+    this.coreService.submit.subscribe((value: boolean) => {
       this._fetched = value;
       sessionStorage.setItem('fetched', `${true}`);
+    });
+
+    this.coreService.clickChange.subscribe((value: boolean) => {
+      this._toggleFilterComponent = value;
     });
   }
 
@@ -61,10 +56,5 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   public get toggleFilterComponent(): boolean {
     return this._toggleFilterComponent;
-  }
-
-  ngOnDestroy(): void {
-    this.subscribeSettingBtn?.unsubscribe();
-    this.subscribeFetched?.unsubscribe();
   }
 }

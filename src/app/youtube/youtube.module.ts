@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import { PodcastService } from './services/podcast.service';
 import { ListComponent } from './components/filter/filter-criteria-block/list.component';
 import { InputComponent } from './components/filter/input/input.component';
 import { ResultComponent } from './components/result/result.component';
@@ -31,6 +30,5 @@ import { ButtonLogoutComponent } from './components/button-logout/button-logout.
     ButtonLogoutComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
-  providers: [PodcastService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
 })
 export class YouTubeModule {}

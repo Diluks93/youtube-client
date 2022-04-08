@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
-
-import { Subject } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoreService {
-  public click$ = new Subject<boolean>();
+  public submit = new EventEmitter<boolean>();
 
-  public toggleFilterComponent(click: boolean): void {
-    this.click$.next(click);
+  public onSubmit(value: boolean): void {
+    this.submit.emit(value);
   }
 
-  public fetched$ = new Subject<boolean>();
+  private _click: boolean = false;
 
-  public isFetched(fetched: boolean): void {
-    this.fetched$.next(fetched);
+  public clickChange = new EventEmitter<boolean>();
+
+  public toggleComponent(value: boolean): void {
+    this._click = value ? !this._click : value;
+    this.clickChange.emit(this._click);
   }
 }
