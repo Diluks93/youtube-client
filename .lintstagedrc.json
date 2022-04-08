@@ -1,0 +1,5 @@
+{
+  "*.ts": "ng lint",
+  "*.scss": "ng lint",
+  "*.html": "ng lint"
+}

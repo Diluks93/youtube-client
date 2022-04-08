@@ -1,0 +1,17 @@
+<mat-list role="list" class="flex">
+  <mat-list-item role="listitem">Sorting by:</mat-list-item>
+  <mat-list-item
+    *ngFor="let btn of ['date', 'count of views']; index as i"
+    role="listitem">
+    <app-button
+      [nameButton]="btn"
+      [isDisabled]="isDisabled"
+      (isClickedChange)="toggleClick($event, i)"
+    ></app-button>
+  </mat-list-item>
+  <mat-list-item role="listitem">
+    <app-input
+      [(valueThatUserTypes)]="isDisabled ? '' : valueThatUserTypes"
+    ></app-input>
+  </mat-list-item>
+</mat-list>

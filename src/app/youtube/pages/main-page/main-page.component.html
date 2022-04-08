@@ -1,0 +1,16 @@
+<mat-toolbar color="accent" class="container">
+  <app-filter-criteria-block
+    *ngIf="toggleFilterComponent"
+    (valueThatUserTypesChange)="valueThatUserTypes = $event"
+    (isClickingCountOfViewsChange)="toggleClickCountOfViews($event)"
+    (isClickingDateChange)="toggleClickDate($event)"
+  ></app-filter-criteria-block>
+</mat-toolbar>
+<app-result
+  *ngIf="fetched"
+  [valueThatUserTypes]="valueThatUserTypes"
+  [isClickingCountOfViews]="isClickingCountOfViews"
+  [isClickingDate]="isClickingDate"
+  class="container main"
+></app-result>
+<app-button-logout></app-button-logout>
