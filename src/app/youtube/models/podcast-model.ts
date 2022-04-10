@@ -5,7 +5,7 @@ export class Podcast {
     readonly description: string,
     readonly viewCount: string,
     readonly likeCount: string,
-    readonly dislikeCount: string,
+    readonly favoriteCount: string,
     readonly commentCount: string,
     readonly preview: string,
     readonly publishedAt: string,

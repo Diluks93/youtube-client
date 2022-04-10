@@ -3,7 +3,7 @@
     <mat-icon>{{icon}}</mat-icon>
     <span [ngSwitch]="i">
       <ng-template [ngSwitchCase]="0">{{podcast.viewCount}}</ng-template>
-      <ng-template [ngSwitchCase]="1">{{podcast.dislikeCount}}</ng-template>
+      <ng-template [ngSwitchCase]="1">{{podcast.favoriteCount}}</ng-template>
       <ng-template [ngSwitchCase]="2">{{podcast.likeCount}}</ng-template>
       <ng-template [ngSwitchCase]="3">{{podcast.commentCount}}</ng-template>
     </span>
