@@ -20,15 +20,14 @@ export class SearchComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    // todo: remove any-type
     fromEvent(this.inputElement?.nativeElement, 'keyup')
       .pipe(
         debounceTime(500),
         pluck('target', 'value'),
-        distinctUntilChanged<any>(),
-        filter((value: string) => value.length > 3),
-        tap((value: string) => value),
+        distinctUntilChanged(),
+        filter((value) => `${value}`.trim().length > 3),
+        tap((value) => value),
       )
-      .subscribe((value) => this.coreService.changeString(value));
+      .subscribe((value) => this.coreService.changeString(`${value}`));
   }
 }

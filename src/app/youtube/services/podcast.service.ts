@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, of, shareReplay } from 'rxjs';
-import { map, catchError, mergeMap } from 'rxjs/operators';
+import { map, catchError, mergeMap, retry } from 'rxjs/operators';
 
 import { Podcast } from '../models/podcast-model';
 import {
@@ -33,6 +33,7 @@ export class PodcastService {
       const urlSearch = `${this.API_URL_SEARCH}?key=${this.API_KEY}&type=video&maxResults=50&q=${query}`;
 
       this.cashedPodcasts$ = this.http.get<ResponseClientSearch>(urlSearch).pipe(
+        retry(3),
         map(({ items }) => {
           this.dataIds = items
             .filter((item) => item.id.kind === 'youtube#video')
@@ -40,12 +41,14 @@ export class PodcastService {
 
           return items;
         }),
+        catchError(this.handleError<Podcast[]>('getPodcast', [])),
         mergeMap(() => {
           const urlVideos = `${this.API_URL_VIDEOS}?key=${this.API_KEY}&id=${this.dataIds.join(
             ',',
           )}&part=snippet,statistics&maxResults=50`;
 
           return this.http.get<ResponseClientVideo>(urlVideos).pipe(
+            retry(3),
             map(({ items }) => {
               return items.map((podcast: ClientItemVideo): Podcast => {
                 return new Podcast(
