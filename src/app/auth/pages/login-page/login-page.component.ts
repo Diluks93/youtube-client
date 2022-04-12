@@ -18,12 +18,12 @@ export class LoginPageComponent {
     this.message = this.getMessage();
   }
 
-  public isLogin: boolean = this.authService.isLoggedIn ? true : false;
+  public isLogin: boolean = localStorage.getItem('auth') ? true : false;
 
   public isProcess: boolean = false;
 
   private getMessage(): string {
-    return this.authService.isLoggedIn ? 'You are logged in!' : 'You are not logged in!';
+    return localStorage.getItem('auth') ? 'You are logged in!' : 'You are not logged in!';
   }
 
   public login(): void {

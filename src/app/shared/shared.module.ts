@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AnimationComponent } from './components/animation/animation.component';
 
@@ -27,6 +28,7 @@ import { AnimationComponent } from './components/animation/animation.component';
     ReactiveFormsModule,
     FormsModule,
     AnimationComponent,
+    MatProgressSpinnerModule,
   ],
 })
 export class SharedModule {}

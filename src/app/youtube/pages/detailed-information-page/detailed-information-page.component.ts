@@ -19,8 +19,15 @@ export class DetailedInformationPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private podcastService: PodcastService) {}
 
   public ngOnInit(): void {
+    this.getPodcast(sessionStorage.getItem('inputValue') as string);
+  }
+
+  public getPodcast(value: string): void {
     this.podcast$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.podcastService.getPodcastsById(params.get('id')!)),
+      switchMap((params: ParamMap) => {
+        const id = params.get('id') as string;
+        return this.podcastService.getPodcastsById(id, value);
+      }),
     );
   }
 }

@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   constructor(private router: Router, private authService: AuthService) {}
 
   private checkLogin(url: string): true | UrlTree {
-    if (this.authService.isLoggedIn) {
+    if (localStorage.getItem('auth')) {
       return true;
     }
 
@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   public canLoad() {
-    if (this.authService.isLoggedIn) {
+    if (localStorage.getItem('auth')) {
       return true;
     }
 

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 @Component({
   selector: 'app-filter-criteria-block',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
   private _valueThatUserTypes: string = '';
@@ -16,7 +16,7 @@ export class ListComponent {
   }
 
   public get isDisabled(): boolean {
-    this._isDisabled = sessionStorage.getItem('fetched') ? false : true;
+    this._isDisabled = sessionStorage.getItem('inputValue') ? false : true;
     return this._isDisabled;
   }
 

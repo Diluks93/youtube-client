@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { CoreService } from 'src/app/core/services/core.service';
 
 import { Podcast } from '../../models/podcast-model';
 import { PodcastService } from '../../services/podcast.service';
@@ -13,7 +11,9 @@ import { PodcastService } from '../../services/podcast.service';
   styleUrls: ['./result.component.scss'],
 })
 export class ResultComponent implements OnInit {
-  public podcasts$!: Observable<Podcast[]>;
+  public podcasts: Podcast[] = [];
+
+  public loading: boolean = false;
 
   protected selectedId: string = '';
 
@@ -29,16 +29,23 @@ export class ResultComponent implements OnInit {
   @Output()
   public valueThatUserTypesChange = new EventEmitter<string>();
 
-  constructor(private podcastService: PodcastService, private route: ActivatedRoute) {}
+  constructor(
+    private readonly podcastService: PodcastService,
+    private readonly coreService: CoreService,
+  ) {}
 
-  ngOnInit(): void {
-    this.podcasts$ = this.route.paramMap.pipe(
-      switchMap((params) => {
-        this.selectedId = params.get('id') as string;
+  public ngOnInit(): void {
+    this.coreService.string$.subscribe((value) => {
+      this.handleSearch(value);
+    });
+  }
 
-        return this.podcastService.getPodcasts();
-      }),
-    );
+  private handleSearch(inputValue: string) {
+    this.loading = true;
+    this.podcastService.getPodcasts(inputValue).subscribe((podcasts) => {
+      this.podcasts = podcasts;
+      this.loading = false;
+    });
   }
 
   public identify(_: number, item: Podcast): string {

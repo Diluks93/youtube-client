@@ -12,8 +12,6 @@ export class MainPageComponent implements OnInit {
 
   public toggleFilterComponent: boolean = false;
 
-  private _fetched: boolean = false;
-
   @Input()
   public get valueThatUserTypes(): string {
     return this._valueThatUserTypes;
@@ -40,17 +38,8 @@ export class MainPageComponent implements OnInit {
   constructor(private readonly coreService: CoreService) {}
 
   ngOnInit(): void {
-    this.coreService.submit.subscribe((value: boolean) => {
-      this._fetched = value;
-      sessionStorage.setItem('fetched', `${true}`);
-    });
-
     this.coreService.clickChange.subscribe((value: boolean) => {
       this.toggleFilterComponent = value;
     });
-  }
-
-  public get fetched(): boolean {
-    return JSON.parse(sessionStorage.getItem('fetched') as string) || this._fetched;
   }
 }

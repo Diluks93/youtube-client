@@ -1,11 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, of, shareReplay } from 'rxjs';
+import { map, catchError, mergeMap } from 'rxjs/operators';
 
 import { Podcast } from '../models/podcast-model';
-import { ClientItem, ResponseClient } from '../models/response-client.model';
+import {
+  ClientItemVideo,
+  ResponseClientSearch,
+  ResponseClientVideo,
+} from '../models/response-client.model';
 import { MessageService } from './message.service';
 
 @Injectable({
@@ -14,31 +18,59 @@ import { MessageService } from './message.service';
 export class PodcastService {
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
-  // private podcastUrl: string = 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDPP5Mu7kGql38pphvYV7KkK9BrVs3Jx4s&part=snippet,statistics&maxResults=15';
+  private API_URL_SEARCH = 'https://www.googleapis.com/youtube/v3/search';
 
-  private podcastUrlMock = 'assets/mock.json';
+  private API_URL_VIDEOS = 'https://www.googleapis.com/youtube/v3/videos';
 
-  public getPodcasts(): Observable<Podcast[]> {
-    return this.http.get<ResponseClient>(this.podcastUrlMock).pipe(
-      map(({ items }) => {
-        return items.map((podcast: ClientItem): Podcast => {
-          return new Podcast(
-            podcast.id,
-            podcast.snippet.title,
-            podcast.snippet.description,
-            podcast.statistics.viewCount,
-            podcast.statistics.likeCount,
-            podcast.statistics.favoriteCount,
-            podcast.statistics.commentCount,
-            podcast.snippet.thumbnails.high.url,
-            podcast.snippet.publishedAt,
-            podcast.snippet.thumbnails.default.width,
-            podcast.snippet.thumbnails.default.height,
+  private API_KEY = 'AIzaSyCqyAvKcD-S-sW3C9ZXuOdpKl6Etz2AOkA';
+
+  private dataIds: string[] = [];
+
+  cashedPodcasts$!: Observable<Podcast[]>;
+
+  public getPodcasts(query: string): Observable<Podcast[]> {
+    if (!this.cashedPodcasts$) {
+      const urlSearch = `${this.API_URL_SEARCH}?key=${this.API_KEY}&type=video&maxResults=50&q=${query}`;
+
+      this.cashedPodcasts$ = this.http.get<ResponseClientSearch>(urlSearch).pipe(
+        map(({ items }) => {
+          this.dataIds = items
+            .filter((item) => item.id.kind === 'youtube#video')
+            .map((item) => item.id.videoId);
+
+          return items;
+        }),
+        mergeMap(() => {
+          const urlVideos = `${this.API_URL_VIDEOS}?key=${this.API_KEY}&id=${this.dataIds.join(
+            ',',
+          )}&part=snippet,statistics&maxResults=50`;
+
+          return this.http.get<ResponseClientVideo>(urlVideos).pipe(
+            map(({ items }) => {
+              return items.map((podcast: ClientItemVideo): Podcast => {
+                return new Podcast(
+                  podcast.id,
+                  podcast.snippet.title,
+                  podcast.snippet.description,
+                  podcast.snippet.thumbnails.high.url,
+                  podcast.snippet.publishedAt,
+                  podcast.statistics.viewCount,
+                  podcast.statistics.likeCount,
+                  podcast.statistics.favoriteCount,
+                  podcast.statistics.commentCount,
+                  podcast.snippet.thumbnails.default.width,
+                  podcast.snippet.thumbnails.default.height,
+                );
+              });
+            }),
+            catchError(this.handleError<Podcast[]>('getPodcast', [])),
           );
-        });
-      }),
-      catchError(this.handleError<Podcast[]>('getPodcast', [])),
-    );
+        }),
+        shareReplay(1),
+      );
+    }
+
+    return this.cashedPodcasts$;
   }
 
   /** Log a PodcastService message with the MessageService */
@@ -66,9 +98,40 @@ export class PodcastService {
     };
   }
 
-  public getPodcastsById(id: string): Observable<Podcast | undefined> {
-    return this.getPodcasts().pipe(
-      map((podcasts: Podcast[]) => podcasts.find((podcast) => podcast.id === id)),
+  public getPodcastsById(id: string, query: string): Observable<Podcast | undefined> {
+    return this.getPodcasts(query).pipe(
+      map((podcasts: Podcast[]) => {
+        return podcasts.find((podcast) => {
+          return podcast.id === id;
+        });
+      }),
     );
   }
+
+  // /* GET podcasts whose title contains search term */
+  // searchPodcasts(term: string): Observable<Podcast[]> {
+  //   if (!term.trim() && term.length < 3) {
+  //     // if not search term, return empty podcast array.
+  //     return of([]);
+  //   }
+  //   return this.http.get<Podcast[]>(`${this.podcastUrl}/?title=${term}`).pipe(
+  //   tap(x => x.length ?
+  //      this.log(`found podcasts matching "${term}"`) :
+  //      this.log(`no podcasts matching "${term}"`)),
+  //   catchError(this.handleError<Podcast[]>('searchPodcasts', []))
+  //   );
+  // }
+
+  // getHeroNo404<Data>(id: number): Observable<Podcast> {
+  //   const url = `${this.podcastUrl}/?id=${id}`;
+  //   return this.http.get<Podcast[]>(url)
+  //     .pipe(
+  //       map(heroes => heroes[0]), // returns a {0|1} element array
+  //       tap(h => {
+  //         const outcome = h ? 'fetched' : 'did not find';
+  //         this.log(`${outcome} hero id=${id}`);
+  //       }),
+  //       catchError(this.handleError<Podcast>(`getHero id=${id}`))
+  //     );
+  // }
 }

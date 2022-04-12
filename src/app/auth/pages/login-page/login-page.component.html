@@ -23,7 +23,7 @@
         color="primary"
         type="submit"
         (click)="login()"
-        *ngIf="!authService.isLoggedIn"
+        *ngIf="!isLogin"
       >Login</button>
     </mat-card-actions>
   </mat-card>

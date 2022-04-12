@@ -1,24 +1,32 @@
-export interface ResponseClient extends KindEtag {
+export interface ResponseClientSearch extends KindEtag {
   pageInfo: PageInfo;
-  items: Array<ClientItem>;
+  items: Array<ClientItemSearch>;
 }
 
-export interface PageInfo {
+export type ResponseClientVideo = Pick<ResponseClientSearch, 'pageInfo'> & {
+  items: Array<ClientItemVideo>;
+};
+
+interface PageInfo {
   totalResults: number;
   resultsPerPage: number;
 }
 
-export interface ClientItem {
+export interface ClientItemSearch {
   kind: string;
   etag: string;
-  id: string;
+  id: Id;
   snippet: Snippet;
   statistics: Statistics;
 }
 
-export type KindEtag = Pick<ClientItem, 'kind' | 'etag'>;
+export type ClientItemVideo = Omit<ClientItemSearch, 'id'> & { id: string };
 
-export interface Snippet {
+type Id = { kind: string; videoId: string };
+
+type KindEtag = Pick<ClientItemSearch, 'kind' | 'etag'>;
+
+interface Snippet {
   publishedAt: string;
   channelId: string;
   title: string;
@@ -33,26 +41,26 @@ export interface Snippet {
   defaultLanguage?: 'ru' | 'en';
 }
 
-export type Thumbnail = {
+type Thumbnail = {
   [keys in PropCharacteristics]: Characteristics;
 };
 
-export type PropCharacteristics = Required<'default' | 'medium' | 'high' | 'standard' | 'maxres'>;
+type PropCharacteristics = Required<'default' | 'medium' | 'high' | 'standard' | 'maxres'>;
 
-export interface Characteristics {
+interface Characteristics {
   url: string;
   width: number;
   height: number;
 }
 
-export type Localized = {
+type Localized = {
   [keys in Required<'title' | 'description'>]: string;
 };
 
-export type Statistics = {
+type Statistics = {
   [keys in PropStatistics]: string;
 };
 
-export type PropStatistics = Required<
+type PropStatistics = Required<
   'viewCount' | 'likeCount' | 'dislikeCount' | 'favoriteCount' | 'commentCount'
 >;

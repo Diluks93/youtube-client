@@ -1,21 +1,24 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoreService {
-  public submit = new EventEmitter<boolean>();
+  public string$ = new Subject<string>();
 
-  public onSubmit(value: boolean): void {
-    this.submit.emit(value);
+  public changeString(string: string): void {
+    this.string$.next(string);
+    sessionStorage.setItem('inputValue', string);
   }
 
   private _click: boolean = false;
 
-  public clickChange = new EventEmitter<boolean>();
+  public clickChange = new Subject<boolean>();
 
   public toggleComponent(value: unknown): void {
     this._click = value ? !this._click : (value as boolean);
-    this.clickChange.emit(this._click);
+    this.clickChange.next(this._click);
   }
 }

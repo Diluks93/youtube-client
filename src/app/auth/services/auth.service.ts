@@ -17,7 +17,6 @@ export class AuthService {
       tap(() => {
         this.isLoggedIn = true;
         localStorage.setItem('auth', `${this.isLoggedIn}`);
-        sessionStorage.clear();
       }),
     );
   }
@@ -25,6 +24,5 @@ export class AuthService {
   public logout(): void {
     this.isLoggedIn = false;
     localStorage.clear();
-    sessionStorage.clear();
   }
 }
