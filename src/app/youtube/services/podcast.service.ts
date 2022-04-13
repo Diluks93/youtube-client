@@ -18,11 +18,9 @@ import { MessageService } from './message.service';
 export class PodcastService {
   constructor(private messageService: MessageService, private http: HttpClient) {}
 
-  private API_URL_SEARCH = 'https://www.googleapis.com/youtube/v3/search';
+  private SEARCH = 'search/';
 
-  private API_URL_VIDEOS = 'https://www.googleapis.com/youtube/v3/videos';
-
-  private API_KEY = 'AIzaSyCqyAvKcD-S-sW3C9ZXuOdpKl6Etz2AOkA';
+  private VIDEOS = 'videos/';
 
   private dataIds: string[] = [];
 
@@ -30,7 +28,7 @@ export class PodcastService {
 
   public getPodcasts(query: string): Observable<Podcast[]> {
     if (!this.cashedPodcasts$) {
-      const urlSearch = `${this.API_URL_SEARCH}?key=${this.API_KEY}&type=video&maxResults=50&q=${query}`;
+      const urlSearch = `${this.SEARCH}&q=${query}`;
 
       this.cashedPodcasts$ = this.http.get<ResponseClientSearch>(urlSearch).pipe(
         retry(3),
@@ -43,9 +41,7 @@ export class PodcastService {
         }),
         catchError(this.handleError<Podcast[]>('getPodcast', [])),
         mergeMap(() => {
-          const urlVideos = `${this.API_URL_VIDEOS}?key=${this.API_KEY}&id=${this.dataIds.join(
-            ',',
-          )}&part=snippet,statistics&maxResults=50`;
+          const urlVideos = `${this.VIDEOS}&id=${this.dataIds.join(',')}`;
 
           return this.http.get<ResponseClientVideo>(urlVideos).pipe(
             retry(3),
@@ -110,20 +106,6 @@ export class PodcastService {
       }),
     );
   }
-
-  // /* GET podcasts whose title contains search term */
-  // searchPodcasts(term: string): Observable<Podcast[]> {
-  //   if (!term.trim() && term.length < 3) {
-  //     // if not search term, return empty podcast array.
-  //     return of([]);
-  //   }
-  //   return this.http.get<Podcast[]>(`${this.podcastUrl}/?title=${term}`).pipe(
-  //   tap(x => x.length ?
-  //      this.log(`found podcasts matching "${term}"`) :
-  //      this.log(`no podcasts matching "${term}"`)),
-  //   catchError(this.handleError<Podcast[]>('searchPodcasts', []))
-  //   );
-  // }
 
   // getHeroNo404<Data>(id: number): Observable<Podcast> {
   //   const url = `${this.podcastUrl}/?id=${id}`;

@@ -11,6 +11,7 @@ import { SearchComponent } from './components/header/search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { CachingInterceptor } from './http-interceptors/caching.interceptor';
+import { HeaderInterceptor } from './http-interceptors/header.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { CachingInterceptor } from './http-interceptors/caching.interceptor';
     PageNotFoundComponent,
   ],
   imports: [CommonModule, SharedModule],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
+  ],
   exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
 })
 export class CoreModule {}

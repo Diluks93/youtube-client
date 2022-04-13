@@ -15,7 +15,7 @@ import { tap } from 'rxjs/operators';
 export class CachingInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<string>> {
     let cachedUrl: HttpResponse<string> = JSON.parse(localStorage.getItem(request.url)!);
-    console.log(cachedUrl);
+
     return cachedUrl
       ? of(new HttpResponse(cachedUrl as unknown as HttpRequest<string>))
       : this.sendRequest(request, next);
