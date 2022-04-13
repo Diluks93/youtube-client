@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
 import { CoreService } from 'src/app/core/services/core.service';
-
 import { Podcast } from '../../models/podcast-model';
 import { PodcastService } from '../../services/podcast.service';
 
@@ -13,8 +13,6 @@ import { PodcastService } from '../../services/podcast.service';
 })
 export class ResultComponent implements OnInit, OnDestroy {
   public podcasts: Podcast[] = [];
-
-  public loading: boolean = false;
 
   protected selectedId: string = '';
 
@@ -40,16 +38,14 @@ export class ResultComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.coreService.string$.subscribe((value) => {
+    this.subscribeCore = this.coreService.string$.subscribe((value) => {
       this.handleSearch(value);
     });
   }
 
   private handleSearch(inputValue: string) {
-    this.loading = true;
     this.subscribePodcast = this.podcastService.getPodcasts(inputValue).subscribe((podcasts) => {
       this.podcasts = podcasts;
-      this.loading = false;
     });
   }
 

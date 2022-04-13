@@ -4,8 +4,6 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, pluck, filter, tap } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/core.service';
 
-import { PodcastService } from 'src/app/youtube/services/podcast.service';
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -14,15 +12,14 @@ import { PodcastService } from 'src/app/youtube/services/podcast.service';
 export class SearchComponent implements AfterViewInit {
   @ViewChild('searchBox') inputElement?: ElementRef;
 
-  constructor(
-    public readonly podcastService: PodcastService,
-    private readonly coreService: CoreService,
-  ) {}
+  private debounce: number = 500;
 
-  ngAfterViewInit() {
+  constructor(private readonly coreService: CoreService) {}
+
+  public ngAfterViewInit() {
     fromEvent(this.inputElement?.nativeElement, 'keyup')
       .pipe(
-        debounceTime(500),
+        debounceTime(this.debounce),
         pluck('target', 'value'),
         distinctUntilChanged(),
         filter((value) => `${value}`.trim().length > 3),

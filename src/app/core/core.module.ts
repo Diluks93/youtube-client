@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -9,6 +10,7 @@ import { SettingButtonComponent } from './components/header/setting-button/setti
 import { SearchComponent } from './components/header/search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { CachingInterceptor } from './http-interceptors/caching.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     PageNotFoundComponent,
   ],
   imports: [CommonModule, SharedModule],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }],
   exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
 })
 export class CoreModule {}
