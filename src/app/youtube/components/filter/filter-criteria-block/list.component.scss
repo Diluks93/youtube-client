@@ -1,0 +1,11 @@
+.flex {
+  display: flex;
+  & :nth-child(2),
+  & :nth-child(3) {
+    color: var(--bg);
+  }
+}
+
+.inactive {
+  background-color: rgba(0, 0, 0, 0) !important;
+}

@@ -1,0 +1,11 @@
+<mat-card-actions *ngIf="podcast">
+  <span *ngFor="let icon of nameIcons; index as i" class="flex">
+    <mat-icon>{{icon}}</mat-icon>
+    <span [ngSwitch]="i">
+      <ng-template [ngSwitchCase]="0">{{podcast.viewCount}}</ng-template>
+      <ng-template [ngSwitchCase]="1">{{podcast.favoriteCount}}</ng-template>
+      <ng-template [ngSwitchCase]="2">{{podcast.likeCount}}</ng-template>
+      <ng-template [ngSwitchCase]="3">{{podcast.commentCount}}</ng-template>
+    </span>
+  </span>
+</mat-card-actions>
