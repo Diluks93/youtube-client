@@ -12,6 +12,8 @@ import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { CachingInterceptor } from './http-interceptors/caching.interceptor';
 import { HeaderInterceptor } from './http-interceptors/header.interceptor';
+import { JwtInterceptor } from './http-interceptors/jwt.interceptor';
+import { fakeBackendProvider } from './http-interceptors/fake-backend.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,11 @@ import { HeaderInterceptor } from './http-interceptors/header.interceptor';
   ],
   imports: [CommonModule, SharedModule],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
+
+    fakeBackendProvider,
   ],
   exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
 })

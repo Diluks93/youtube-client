@@ -5,7 +5,6 @@ import {
   CanLoad,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -16,24 +15,18 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(private router: Router, private authService: AuthService) {}
 
-  private checkLogin(url: string): true | UrlTree {
-    if (localStorage.getItem('auth')) {
+  public canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const user = this.authService.userValue;
+    if (user) {
       return true;
     }
 
-    this.authService.redirectToUrl = url;
-
-    return this.router.parseUrl('/login-page');
-  }
-
-  public canActivate(_: ActivatedRouteSnapshot, state: RouterStateSnapshot): true | UrlTree {
-    const url = state.url;
-
-    return this.checkLogin(url);
+    this.router.navigate(['/login-page'], { queryParams: { returnUrl: state.url } });
+    return false;
   }
 
   public canLoad() {
-    if (localStorage.getItem('auth')) {
+    if (localStorage.getItem('login-example-users')) {
       return true;
     }
 

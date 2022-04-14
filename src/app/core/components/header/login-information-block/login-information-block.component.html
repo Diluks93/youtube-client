@@ -1,4 +1,4 @@
-<span>Your Name</span>
-<button mat-raised-button color="primary" class="btn">
+<span>{{name}}</span>
+<button mat-raised-button color="warn" class="btn" (click)="authService.logout()">
   <mat-icon>account_circle</mat-icon>
 </button>
