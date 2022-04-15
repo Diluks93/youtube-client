@@ -1,0 +1,89 @@
+<form [formGroup]="adminForm" (ngSubmit)="onSubmit()" class="flex container">
+  <mat-card class="card">
+    <mat-card-title>Create new card</mat-card-title>
+    <mat-card-content class="content">
+      <mat-form-field appearance="standard">
+        <mat-label>Title</mat-label>
+        <input matInput
+          formControlName="title"
+          type="text"
+          placeholder="Please enter a title"
+          autocomplete="off"
+          required
+        >
+        <mat-error *ngIf="f['title'].touched && f['title'].invalid">
+          <span *ngIf="f['title'].errors?.['required']">This field is mandatory.</span>
+          <span *ngIf="f['title'].errors?.['minlength']">The title is too short.</span>
+          <span *ngIf="f['title'].errors?.['maxlength']">The title is too long.</span>
+        </mat-error>
+        <mat-hint *ngIf="f['title'].valid">Your title is valid</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Description</mat-label>
+        <textarea matInput
+          formControlName="description"
+          #message
+          type="text"
+          placeholder="Please add description for your post"
+          autocomplete="off"
+          maxlength="255"
+          class="textarea"
+        ></textarea>
+        <mat-hint align="end">{{message.value.length}} / 255</mat-hint>
+        <mat-error *ngIf="f['description'].touched && f['description'].invalid">
+          <span *ngIf="f['description'].errors?.['maxlength']">The description is too long.</span>
+        </mat-error>
+        <mat-hint *ngIf="f['description'].valid">Your description is valid</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Image</mat-label>
+        <input matInput
+          formControlName="image"
+          type="text"
+          placeholder="Please enter a link to the image"
+          autocomplete="off"
+          required
+        >
+        <mat-error *ngIf="f['image'].touched && f['image'].invalid">
+          <span *ngIf="f['image'].errors?.['email']">The image link is invalid.</span>
+        </mat-error>
+        <mat-hint *ngIf="f['image'].valid">Your link is valid</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Link video</mat-label>
+        <input matInput
+          formControlName="video"
+          type="text"
+          placeholder="Please enter a link to the video"
+          autocomplete="off"
+          required
+        >
+        <mat-error *ngIf="f['video'].touched && f['video'].invalid">
+          <span *ngIf="f['video'].errors?.['email']">The video link is invalid.</span>
+        </mat-error>
+        <mat-hint *ngIf="f['video'].valid">Your link is valid</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Creation date</mat-label>
+        <input matInput
+          formControlName="date"
+          type="date"
+          placeholder="Please enter a creation date"
+          autocomplete="off"
+          required
+        >
+        <mat-error *ngIf="f['date'].touched && f['date'].invalid">
+          <span>The date is invalid.</span>
+        </mat-error>
+        <mat-hint *ngIf="f['date'].valid">Your date is valid</mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions class="btn">
+      <button [disabled]="f['invalid']"
+        mat-raised-button
+        color="warn"
+        type="submit"
+      >Create card</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

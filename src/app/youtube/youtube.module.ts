@@ -14,6 +14,7 @@ import { DetailedInformationPageComponent } from './pages/detailed-information-p
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { StatisticsViewComponent } from './components/statistics-view/statistics-view.component';
 import { ButtonComponent } from './components/button/button.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ButtonComponent } from './components/button/button.component';
     DetailedInformationPageComponent,
     StatisticsViewComponent,
     ButtonComponent,
+    AdminPageComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
 })
