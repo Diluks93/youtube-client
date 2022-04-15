@@ -29,8 +29,8 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  public login(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/authenticate`, { username, password }).pipe(
+  public login(email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/authenticate`, { email, password }).pipe(
       map((user) => {
         localStorage.setItem('user', JSON.stringify(user));
         this.isLoggedIn = true;

@@ -38,13 +38,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function basicDetails(user: User) {
-      const { id, username, firstName, lastName } = user;
-      return { id, username, firstName, lastName };
+      const { id, email, firstName, lastName } = user;
+      return { id, email, firstName, lastName };
     }
 
     function authenticate() {
-      const { username, password } = body as Pick<User, 'username' | 'password'>;
-      const user = users.find((x: User) => x.username === username && x.password === password);
+      const { email, password } = body as Pick<User, 'email' | 'password'>;
+      const user = users.find((x: User) => x.email === email && x.password === password);
       if (!user) return error('Username or password is incorrect');
       return ok({
         ...basicDetails(user),

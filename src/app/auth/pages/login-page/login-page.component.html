@@ -1,29 +1,42 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex container">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex container">
   <p class="login-info"
   [ngStyle]="{'color': isLogin ? 'var(--primary)' : (isProcess ? 'var(--accent)' : 'var(--warn)') }">{{message}}</p>
   <mat-card class="card">
     <mat-card-title>Login</mat-card-title>
     <mat-card-content class="content">
-      <mat-form-field hintLabel="Max 10 characters" appearance="standard">
+      <mat-form-field appearance="standard">
         <mat-label>Login</mat-label>
-        <input matInput #input maxlength="10"
-          formControlName="username"
-          type="text"
-          placeholder="test"
+        <input matInput #input
+          formControlName="email"
+          type="email"
+          placeholder="Please enter a login email"
           autocomplete="off"
+          required
         >
-        <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+        <mat-error *ngIf="f['email'].touched && f['email'].invalid">
+          <span *ngIf="f['email'].errors?.['required']">This field is mandatory.</span>
+          <span *ngIf="f['email'].errors?.['email']">This field is invalid.</span>
+        </mat-error>
+        <mat-hint *ngIf="f['email'].valid">Your email is valid</mat-hint>
       </mat-form-field>
       <mat-form-field appearance="standard">
-        <mat-label>Enter your password</mat-label>
+        <mat-label>Please enter a password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'"
           type="password"
           formControlName="password"
-          placeholder="test"
+          required
         >
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
+        <mat-error *ngIf="f['password'].touched && f['password'].invalid">
+          <span *ngIf="f['password'].errors?.['required']">Your password isn't strong enough.</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Your password at least 8 characters. </span>
+          <span *ngIf="f['password'].errors?.['invalidPassword']">
+            {{loginForm.get('password')?.getError('invalidPassword')}}
+          </span>
+        </mat-error>
+        <mat-hint *ngIf="f['password'].valid">Your password is valid</mat-hint>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions class="btn">

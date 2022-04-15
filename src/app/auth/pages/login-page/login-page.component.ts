@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { first } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 import { NamePage, User } from '../../models/auth.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -16,17 +17,16 @@ export class LoginPageComponent implements OnInit {
 
   public message: string;
 
-  form!: FormGroup;
+  public loginForm!: FormGroup;
 
-  loading = false;
+  public loading = false;
 
-  submitted = false;
+  public submitted = false;
 
   constructor(
     public authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
   ) {
     this.message = this.getMessage();
   }
@@ -43,41 +43,65 @@ export class LoginPageComponent implements OnInit {
     const users: User[] = [
       {
         id: '0',
-        username: 'test',
-        password: 'test',
+        email: 'test@test',
+        password: 't123Test!',
         firstName: 'Guest',
         lastName: 'Test',
         token: 'fake-jwt-token',
       },
     ];
     localStorage.setItem('login-example-users', JSON.stringify(users));
-    this.form = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+
+    this.loginForm = this.formBuilder.group({
+      email: [null, [Validators.required, Validators.email, Validators.minLength(3)]],
+      password: [null, [Validators.required, Validators.minLength(8), this.passwordValidator]],
     });
   }
 
+  private passwordValidator(control: FormControl) {
+    const value = control.value;
+    const hasCapitalLetter = /[A-Z]/.test(value);
+    const hasLowercaseLetter = /[a-z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSymbol = /[@$!%*?&]/.test(value);
+
+    switch (true) {
+      case !hasCapitalLetter:
+        return { invalidPassword: 'Your password have to include uppercase letters.' };
+      case !hasLowercaseLetter:
+        return { invalidPassword: 'Your password have to include lowercase letters.' };
+      case !hasNumber:
+        return { invalidPassword: 'Your password have to mixture of letters and numbers.' };
+      case !hasSymbol:
+        return {
+          invalidPassword: 'Your password have to inclusion of at least one special character.',
+        };
+      default:
+        return null;
+    }
+  }
+
   get f() {
-    return this.form.controls;
+    return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.form.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
     this.authService
-      .login(this.f['username'].value, this.form.controls['password'].value)
+      .login(this.f['email'].value, this.f['password'].value)
       .pipe(first())
       .subscribe({
         next: () => {
           this.message = 'Trying to log in ...';
           this.isProcess = true;
-          this.message = this.getMessage();
           setTimeout(() => {
+            this.message = this.getMessage();
             const redirectUrl: NamePage = '/main-page';
             this.router.navigate([redirectUrl]);
           }, 1000);
