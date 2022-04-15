@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Youtube-client</h1>
+  <h3>Hello, {{name}}!</h3>
+  <p>
+    This is a sample of a minimal YouTube client.
+  </p>
+  <p class="flex">
+    <span>If you want to find something video, please click this button</span>
+    <button mat-raised-button color="warn" [routerLink]="['/main-page']">Main</button>
+  </p>
+  <p class="flex">
+    <span>If you want to post something video, please click this button</span>
+    <button mat-raised-button color="warn" [routerLink]="['/admin-page']">Admin</button>
+  </p>
+</div>

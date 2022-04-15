@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './core/guards/auth.guard';
+import { HomePageComponent } from './core/pages/home-page/home-page.component';
 import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/main-page',
+    redirectTo: '/home-page',
     pathMatch: 'full',
   },
   {
@@ -21,8 +22,19 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'home-page',
+    component: HomePageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      animation: 'fade',
+    },
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
+    data: {
+      animation: 'in',
+    },
   },
 ];
 

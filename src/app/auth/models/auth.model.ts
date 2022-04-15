@@ -1,4 +1,4 @@
-export type NamePage = '/main-page' | '/login-page';
+export type NamePage = '/main-page' | '/login-page' | '/home-page';
 
 export interface User {
   id: string;

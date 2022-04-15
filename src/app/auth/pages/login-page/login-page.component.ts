@@ -102,7 +102,7 @@ export class LoginPageComponent implements OnInit {
           this.isProcess = true;
           setTimeout(() => {
             this.message = this.getMessage();
-            const redirectUrl: NamePage = '/main-page';
+            const redirectUrl: NamePage = '/home-page';
             this.router.navigate([redirectUrl]);
           }, 1000);
         },

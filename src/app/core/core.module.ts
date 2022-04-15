@@ -14,6 +14,8 @@ import { CachingInterceptor } from './http-interceptors/caching.interceptor';
 import { HeaderInterceptor } from './http-interceptors/header.interceptor';
 import { JwtInterceptor } from './http-interceptors/jwt.interceptor';
 import { fakeBackendProvider } from './http-interceptors/fake-backend.interceptor';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,9 @@ import { fakeBackendProvider } from './http-interceptors/fake-backend.intercepto
     SettingButtonComponent,
     SearchComponent,
     PageNotFoundComponent,
+    HomePageComponent,
   ],
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, RouterModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
@@ -33,6 +36,6 @@ import { fakeBackendProvider } from './http-interceptors/fake-backend.intercepto
 
     fakeBackendProvider,
   ],
-  exports: [HeaderComponent, FooterComponent, PageNotFoundComponent],
+  exports: [HeaderComponent, FooterComponent],
 })
 export class CoreModule {}
