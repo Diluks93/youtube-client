@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'mySlice',
 })
 export class MySlicePipe implements PipeTransform {
-  MAX_LEN_STRING = 23;
+  MAX_LEN_STRING = 20;
 
   transform(value: string | undefined): string {
     if (!value) return '';
