@@ -24,7 +24,7 @@ export class CachingInterceptor implements HttpInterceptor {
   sendRequest(request: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<string>> {
     return next.handle(request).pipe(
       tap((event) => {
-        if (event instanceof HttpResponse) {
+        if (event instanceof HttpResponse && !request.url.startsWith('assets')) {
           localStorage.setItem(request.url, JSON.stringify(event));
         }
       }),
