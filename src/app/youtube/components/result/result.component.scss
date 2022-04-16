@@ -49,3 +49,12 @@
   align-items: center;
   flex-direction: row;
 }
+
+.sub-component {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1em;
+}

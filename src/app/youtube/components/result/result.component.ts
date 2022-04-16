@@ -1,30 +1,22 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-
-import { CoreService } from 'src/app/core/services/core.service';
 import { Podcast } from '../../models/podcast-model';
-import { PodcastService } from '../../services/podcast.service';
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResultComponent implements OnInit, OnDestroy {
-  public podcasts: Podcast[] = [];
-
-  protected selectedId: string = '';
-
-  private subscribePodcast?: Subscription;
-
-  private subscribeCore?: Subscription;
+export class ResultComponent {
+  @Input()
+  public podcasts!: Podcast[] | null;
 
   @Input()
-  public isClickingCountOfViews: boolean | undefined = undefined;
+  public isClickingCountOfViews!: boolean | undefined;
 
   @Input()
-  public isClickingDate: boolean | undefined = undefined;
+  public isClickingDate!: boolean | undefined;
 
   @Input()
   public valueThatUserTypes: string = '';
@@ -32,29 +24,7 @@ export class ResultComponent implements OnInit, OnDestroy {
   @Output()
   public valueThatUserTypesChange = new EventEmitter<string>();
 
-  constructor(
-    private readonly podcastService: PodcastService,
-    private readonly coreService: CoreService,
-  ) {}
-
-  public ngOnInit(): void {
-    this.subscribeCore = this.coreService.string$.subscribe((value) => {
-      this.handleSearch(value);
-    });
-  }
-
-  private handleSearch(inputValue: string) {
-    this.subscribePodcast = this.podcastService.getPodcasts(inputValue).subscribe((podcasts) => {
-      this.podcasts = podcasts;
-    });
-  }
-
   public identify(_: number, item: Podcast): string {
     return item.id;
-  }
-
-  public ngOnDestroy(): void {
-    this.subscribePodcast?.unsubscribe();
-    this.subscribeCore?.unsubscribe();
   }
 }

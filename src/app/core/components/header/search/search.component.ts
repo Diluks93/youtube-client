@@ -14,6 +14,8 @@ export class SearchComponent implements AfterViewInit {
 
   private debounce: number = 500;
 
+  private MIN_LEN_THAT_USER_INPUT = 3;
+
   constructor(private readonly coreService: CoreService) {}
 
   public ngAfterViewInit() {
@@ -22,9 +24,16 @@ export class SearchComponent implements AfterViewInit {
         debounceTime(this.debounce),
         pluck('target', 'value'),
         distinctUntilChanged(),
-        filter((value) => `${value}`.trim().length > 3),
+        filter((value) => `${value}`.trim().length > this.MIN_LEN_THAT_USER_INPUT),
         tap((value) => value),
       )
-      .subscribe((value) => this.coreService.changeString(`${value}`));
+      .subscribe((value) => {
+        this.coreService.sendInputValue(`${value}`);
+        this.coreService.clearInputValue();
+      });
+  }
+
+  public clearInputValue() {
+    this.coreService.clearInputValue();
   }
 }

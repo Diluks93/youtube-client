@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoreService {
-  public string$ = new Subject<string>();
+  private _inputValue$ = new BehaviorSubject<{ text: string } | null>(null);
 
-  public changeString(string: string): void {
-    this.string$.next(string);
-    sessionStorage.setItem('inputValue', string);
+  public sendInputValue(value: string): void {
+    this._inputValue$.next({ text: value });
+    sessionStorage.setItem('inputValue', value);
+  }
+
+  public clearInputValue() {
+    this._inputValue$.next(null);
+  }
+
+  public changeInputValue(): Observable<{ text: string } | null> {
+    return this._inputValue$.asObservable();
   }
 
   private _click: boolean = false;

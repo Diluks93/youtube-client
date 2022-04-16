@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, of, shareReplay } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError, mergeMap, retry } from 'rxjs/operators';
 
 import { Podcast } from '../models/podcast-model';
@@ -24,52 +24,45 @@ export class PodcastService {
 
   private dataIds: string[] = [];
 
-  cashedPodcasts$!: Observable<Podcast[]>;
-
   public getPodcasts(query: string): Observable<Podcast[]> {
-    if (!this.cashedPodcasts$) {
-      const urlSearch = `${this.SEARCH}&q=${query}`;
+    const urlSearch = `${this.SEARCH}&q=${query}`;
 
-      this.cashedPodcasts$ = this.http.get<ResponseClientSearch>(urlSearch).pipe(
-        retry(3),
-        map(({ items }) => {
-          this.dataIds = items
-            .filter((item) => item.id.kind === 'youtube#video')
-            .map((item) => item.id.videoId);
+    return this.http.get<ResponseClientSearch>(urlSearch).pipe(
+      retry(3),
+      map(({ items }) => {
+        this.dataIds = items
+          .filter((item) => item.id.kind === 'youtube#video')
+          .map((item) => item.id.videoId);
 
-          return items;
-        }),
-        catchError(this.handleError<Podcast[]>('getPodcast', [])),
-        mergeMap(() => {
-          const urlVideos = `${this.VIDEOS}&id=${this.dataIds.join(',')}`;
+        return items;
+      }),
+      catchError(this.handleError<Podcast[]>('getPodcast', [])),
+      mergeMap(() => {
+        const urlVideos = `${this.VIDEOS}&id=${this.dataIds.join(',')}`;
 
-          return this.http.get<ResponseClientVideo>(urlVideos).pipe(
-            retry(3),
-            map(({ items }) => {
-              return items.map((podcast: ClientItemVideo): Podcast => {
-                return new Podcast(
-                  podcast.id,
-                  podcast.snippet.title,
-                  podcast.snippet.description,
-                  podcast.snippet.thumbnails.high.url,
-                  podcast.snippet.publishedAt,
-                  podcast.statistics.viewCount,
-                  podcast.statistics.likeCount,
-                  podcast.statistics.favoriteCount,
-                  podcast.statistics.commentCount,
-                  podcast.snippet.thumbnails.default.width,
-                  podcast.snippet.thumbnails.default.height,
-                );
-              });
-            }),
-            catchError(this.handleError<Podcast[]>('getPodcast', [])),
-          );
-        }),
-        shareReplay(1),
-      );
-    }
-
-    return this.cashedPodcasts$;
+        return this.http.get<ResponseClientVideo>(urlVideos).pipe(
+          retry(3),
+          map(({ items }) => {
+            return items.map((podcast: ClientItemVideo): Podcast => {
+              return new Podcast(
+                podcast.id,
+                podcast.snippet.title,
+                podcast.snippet.description,
+                podcast.snippet.thumbnails.high.url,
+                podcast.snippet.publishedAt,
+                podcast.statistics.viewCount,
+                podcast.statistics.likeCount,
+                podcast.statistics.favoriteCount,
+                podcast.statistics.commentCount,
+                podcast.snippet.thumbnails.default.width,
+                podcast.snippet.thumbnails.default.height,
+              );
+            });
+          }),
+          catchError(this.handleError<Podcast[]>('getPodcast', [])),
+        );
+      }),
+    );
   }
 
   /** Log a PodcastService message with the MessageService */
