@@ -1,0 +1,17 @@
+.theme {
+  $my-theme-dark: mat-dark-theme($my-primary, $my-accent, $my-warn);
+  @include angular-material-theme($my-theme-dark);
+  $primary: mat-color($my-primary);
+  $accent: mat-color($my-accent);
+  $warn: mat-color($my-warn);
+  $fg_palette:map-get($my-theme-dark, foreground);
+  $bg_palette:map-get($my-theme-dark, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{$primary};
+  --accent: #{$accent};
+  --warn: #{$warn};
+  --fg: #{$fg};
+  --bg: #{$bg};
+}

@@ -1,0 +1,33 @@
+<ng-container
+  *ngIf="podcasts; else loading"
+  class="main container"
+>
+  <mat-card class="card"
+    (valueThatUserTypes)="valueThatUserTypes"
+    *ngFor="let podcast of podcasts
+      | filter: valueThatUserTypes
+      | orderBy: 'viewCount' : isClickingCountOfViews
+      | orderBy: 'date' : isClickingDate; trackBy: identify"
+      [appStatusPublications]="podcast.publishedAt"
+  >
+    <img mat-card-image src={{podcast.preview}}
+        alt="preview podcast"
+        [ngStyle]="{'width':'{{podcast.width}}', 'height':'{{podcast.height}}'}">
+    <app-statistics-view [podcast]="podcast"></app-statistics-view>
+    <mat-card-header>
+      <mat-card-title>{{podcast.title | mySlice}}</mat-card-title>
+    </mat-card-header>
+    <button
+      mat-raised-button
+      color="warn"
+      class="btn"
+      [routerLink]="['/main-page', podcast.id]"
+    >
+      <mat-icon class="icon">info</mat-icon>more...
+    </button>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
