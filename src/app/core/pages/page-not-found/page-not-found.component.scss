@@ -1,25 +1,6 @@
-.container {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  row-gap: 2em;
-}
-
 .not-found {
-  display: flex;
   column-gap: 4em;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
   & .mat-icon {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
     transform: scale(4);
   }
 }

@@ -15,6 +15,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module';
 import { StatisticsViewComponent } from './components/statistics-view/statistics-view.component';
 import { ButtonComponent } from './components/button/button.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
     StatisticsViewComponent,
     ButtonComponent,
     AdminPageComponent,
+    LoadingComponent,
   ],
   imports: [SharedModule, CommonModule, YoutubeRoutingModule],
 })

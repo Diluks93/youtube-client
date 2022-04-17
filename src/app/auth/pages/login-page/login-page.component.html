@@ -1,7 +1,7 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex container">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex column container">
   <p class="login-info"
   [ngStyle]="{'color': isLogin ? 'var(--primary)' : (isProcess ? 'var(--accent)' : 'var(--warn)') }">{{message}}</p>
-  <mat-card class="card">
+  <mat-card class="auth">
     <mat-card-title>Login</mat-card-title>
     <mat-card-content class="content">
       <mat-form-field appearance="standard">

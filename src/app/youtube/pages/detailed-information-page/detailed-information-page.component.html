@@ -1,12 +1,12 @@
 <ng-container
   *ngIf="podcast$ | async as podcast; else loading"
 >
-  <section class="detailed-information-page">
-    <div class="container">
+  <section class="container flex row">
+    <div class="content flex row">
       <button
         mat-raised-button
         color="warn"
-        class="btn"
+        class="small-btn"
         [routerLink]="['..']"
       >
         <mat-icon>navigate_before</mat-icon>
@@ -16,13 +16,13 @@
           <img mat-card-image src={{podcast.preview}} alt="preview podcast">
         </mat-card-actions>
         <article class="article" [appStatusPublications]="podcast.publishedAt">
-          <header class="header">
+          <header class="header flex row">
             <h2 class="header-title">{{podcast.title}}</h2>
             <time class="header-time">{{podcast.publishedAt | date: 'fullDate'}}</time>
           </header>
           <mat-card-content>
-            <h3>Description</h3>
-            <p>{{podcast.description}}</p>
+            <h3 class="title-description">Description</h3>
+            <p class="description">{{podcast.description }}</p>
           </mat-card-content>
           <app-statistics-view [podcast]="podcast" class="app-statistics-view"></app-statistics-view>
         </article>
@@ -32,5 +32,5 @@
 </ng-container>
 
 <ng-template #loading>
-  <mat-spinner color="warn"></mat-spinner>
+  <app-loading></app-loading>
 </ng-template>

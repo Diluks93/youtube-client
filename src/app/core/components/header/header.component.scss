@@ -1,7 +1,4 @@
 .header {
-  display: flex;
-  align-content: center;
-  align-items: center;
   justify-content: flex-end;
   column-gap: 1em;
   width: -webkit-fill-available;
@@ -19,9 +16,6 @@
   .login {
     position: absolute;
     right: 5em;
-    display: flex;
-    align-content: center;
-    align-items: center;
     column-gap: 1em;
   }
 }

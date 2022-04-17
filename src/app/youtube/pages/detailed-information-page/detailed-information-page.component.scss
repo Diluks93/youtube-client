@@ -1,25 +1,11 @@
 $radius: 1em;
 
-.detailed-information-page {
-  height: 85vh;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
+.content {
+  align-items: flex-start;
   flex-wrap: nowrap;
   max-width: 1200px;
   margin: 0 auto;
-  & .btn {
-    height: 3em;
-    min-width: 3em;
-    padding: 0;
+  & .small-btn {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
   }
@@ -32,7 +18,6 @@ $radius: 1em;
     border-bottom-left-radius: $radius;
     border-bottom-right-radius: $radius;
     border-top-right-radius: $radius;
-    box-shadow: 7px 7px 7px 0px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
     .mat-card-actions {
       flex: 2;
       margin: 0;
@@ -47,10 +32,6 @@ $radius: 1em;
       align-items: stretch;
       border-bottom-right-radius: inherit;
       .header {
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
         flex: 1;
         margin-top: 1em;
         &-title {
@@ -75,12 +56,20 @@ $radius: 1em;
         justify-content: flex-start;
         margin-top: 1em;
         max-height: 390px;
-        h3 {
+        .title-description {
           margin: 0;
         }
-        p {
-          text-overflow: ellipsis;
-          overflow: hidden;
+        .description {
+          overflow-x: hidden;
+          &::-webkit-scrollbar {
+            width: 0.5em;
+          }
+          &::-webkit-scrollbar-track {
+            background: var(--white);
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: var(--accent);
+          }
         }
       }
       .app-statistics-view {
