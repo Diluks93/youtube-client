@@ -14,7 +14,7 @@ import { Podcast } from '../../models/podcast-model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailedInformationPageComponent implements OnInit {
-  public podcast$!: Observable<Podcast | undefined>;
+  public podcast$!: Observable<Podcast>;
 
   constructor(private route: ActivatedRoute, private podcastService: PodcastService) {}
 
@@ -26,7 +26,7 @@ export class DetailedInformationPageComponent implements OnInit {
     this.podcast$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const id = params.get('id') as string;
-        return this.podcastService.getPodcastsById(id, value);
+        return this.podcastService.getPodcastsById(id, value) as Observable<Podcast>;
       }),
     );
   }

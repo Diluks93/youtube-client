@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { map, catchError, mergeMap, retry } from 'rxjs/operators';
@@ -16,7 +17,11 @@ import { MessageService } from './message.service';
   providedIn: 'root',
 })
 export class PodcastService {
-  constructor(private messageService: MessageService, private http: HttpClient) {}
+  constructor(
+    private messageService: MessageService,
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   private SEARCH = 'search/';
 
@@ -90,26 +95,15 @@ export class PodcastService {
     };
   }
 
-  public getPodcastsById(id: string, query: string): Observable<Podcast | undefined> {
+  public getPodcastsById(id: string, query: string): Observable<unknown> {
     return this.getPodcasts(query).pipe(
       map((podcasts: Podcast[]) => {
-        return podcasts.find((podcast) => {
-          return podcast.id === id;
-        });
+        return (
+          podcasts.find((podcast) => {
+            return podcast.id === id;
+          }) ?? this.router.navigate(['404'])
+        );
       }),
     );
   }
-
-  // getHeroNo404<Data>(id: number): Observable<Podcast> {
-  //   const url = `${this.podcastUrl}/?id=${id}`;
-  //   return this.http.get<Podcast[]>(url)
-  //     .pipe(
-  //       map(heroes => heroes[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? 'fetched' : 'did not find';
-  //         this.log(`${outcome} hero id=${id}`);
-  //       }),
-  //       catchError(this.handleError<Podcast>(`getHero id=${id}`))
-  //     );
-  // }
 }
