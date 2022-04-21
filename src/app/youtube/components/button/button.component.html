@@ -1,0 +1,8 @@
+<button
+  mat-flat-button
+  class="btn"
+  color="accent"
+  disabled="{{isDisabled}}"
+  (click)="toggleClick($event)"
+  [ngClass]="isDisabled ? 'inactive' : ''"
+>{{nameButton}}</button>

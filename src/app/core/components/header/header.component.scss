@@ -1,0 +1,22 @@
+.header {
+  justify-content: flex-end;
+  column-gap: 1em;
+  width: -webkit-fill-available;
+  height: auto;
+  .logo {
+    flex: 1;
+    text-align: end;
+  }
+  .search {
+    flex: 2;
+  }
+  .setting-button {
+    flex: 1;
+  }
+  .login {
+    position: absolute;
+    right: 5em;
+    column-gap: 1em;
+  }
+}
+
