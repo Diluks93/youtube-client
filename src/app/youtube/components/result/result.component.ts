@@ -13,6 +13,9 @@ export class ResultComponent {
   public podcasts!: Podcast[] | null;
 
   @Input()
+  public loading: boolean | null = false;
+
+  @Input()
   public isClickingCountOfViews!: boolean | undefined;
 
   @Input()

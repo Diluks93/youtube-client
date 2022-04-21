@@ -49,7 +49,12 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {
-        "max-len": ["error", { "code": 140 }]
+        "max-len": [
+          "error",
+          {
+            "code": 140
+          }
+        ]
       }
     },
     {
@@ -80,6 +85,14 @@
       "rules": {
         "@typescript-eslint/no-unused-vars": "off"
       }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:ngrx/recommended"
+      ]
     }
   ]
 }

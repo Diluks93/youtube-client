@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { CoreService } from 'src/app/core/services/core.service';
+import * as PodcastActions from 'src/app/redux/actions/podcast.actions';
+import { AppState } from 'src/app/redux/state.models.ts/app.state';
 import { Podcast } from '../../models/podcast-model';
-import { PodcastService } from '../../services/podcast.service';
 
 @Component({
   selector: 'app-main-page',
@@ -17,9 +19,17 @@ export class MainPageComponent implements OnInit {
 
   public podcasts$!: Observable<Podcast[]>;
 
+  public loading$!: Observable<boolean>;
+
   private handleSearch(value: string | null): void {
     if (value) {
-      this.podcasts$ = this.podcastService.getPodcasts(value);
+      this.store.dispatch(PodcastActions.searchPodcast({ query: value }));
+      this.podcasts$ = (this.store as Store<AppState>).select(
+        (state) => state.podcastState.podcasts,
+      ) as Observable<Podcast[]>;
+      this.loading$ = (this.store as Store<AppState>).select(
+        (state) => state.podcastState.loading,
+      ) as Observable<boolean>;
     }
   }
 
@@ -46,10 +56,7 @@ export class MainPageComponent implements OnInit {
     this.isClickingDate = value;
   }
 
-  constructor(
-    private readonly coreService: CoreService,
-    private readonly podcastService: PodcastService,
-  ) {}
+  constructor(private readonly coreService: CoreService, private store: Store) {}
 
   public ngOnInit(): void {
     this.coreService.clickChange.subscribe((value: boolean) => {

@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 import { ListComponent } from './components/filter/filter-criteria-block/list.component';
 import { InputComponent } from './components/filter/input/input.component';
 import { ResultComponent } from './components/result/result.component';
@@ -16,6 +19,8 @@ import { StatisticsViewComponent } from './components/statistics-view/statistics
 import { ButtonComponent } from './components/button/button.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { podcastReducer } from '../redux/reducers/podcast-search.reducer';
+import { PodcastSearchEffect } from '../redux/effects/podcasts-search.effect';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,12 @@ import { LoadingComponent } from './components/loading/loading.component';
     AdminPageComponent,
     LoadingComponent,
   ],
-  imports: [SharedModule, CommonModule, YoutubeRoutingModule],
+  imports: [
+    SharedModule,
+    CommonModule,
+    YoutubeRoutingModule,
+    StoreModule.forFeature('podcastState', podcastReducer),
+    EffectsModule.forFeature([PodcastSearchEffect]),
+  ],
 })
 export class YouTubeModule {}

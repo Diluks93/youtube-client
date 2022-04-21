@@ -19,7 +19,7 @@ export class HeaderInterceptor implements HttpInterceptor {
     const paramKey = new HttpParams().set('?key', this.API_KEY);
     switch (true) {
       case request.url.startsWith('search'):
-        const paramSearch = new HttpParams().set('type', 'video').set('maxResults', '50');
+        const paramSearch = new HttpParams().set('type', 'video').set('maxResults', '5');
         const startUrlSearch = this.getChunksUrl(request.url).startUrl;
         const endUrlSearch = this.getChunksUrl(request.url).endUrl;
         newRequest = request.clone({

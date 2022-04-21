@@ -11,5 +11,11 @@ export class Podcast {
     readonly commentCount: string,
     readonly width?: number,
     readonly height?: number,
+    readonly video?: string,
   ) {}
 }
+
+export type PodcastCustom = Pick<
+  Podcast,
+  'id' | 'title' | 'description' | 'publishedAt' | 'preview' | 'video'
+>;
